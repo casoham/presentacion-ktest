@@ -8,10 +8,10 @@
 <link rel="icon" href="assets/k-test.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 * { margin: 0; box-sizing: border-box; }
-html, body { height: 100%; background: #0c0c0c; overflow: hidden; }
+html, body { height: 100%; background: #05080f; overflow: hidden; }
 #escenario { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; }
 h1 { font-size: 96px; font-weight: 600; } h2 { font-size: 64px; font-weight: 600; } h3 { font-size: 44px; font-weight: 600; } p { font-size: 32px; }
 :root {
@@ -230,9 +230,9 @@ section.activa.mismo-grupo .titulo, section.activa.mismo-grupo .pie { animation:
 
 /* Carrusel de comentarios */
 .carrusel { position: relative; margin: 56px -128px 0; width: 1920px; display: flex; flex-direction: column; gap: 20px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.cinta { display: flex; gap: 20px; width: max-content; animation: correr 90s linear infinite; }
-.cinta.reversa { animation-direction: reverse; animation-duration: 110s; }
-.cinta.lenta { animation-duration: 130s; }
+.cinta { display: flex; gap: 20px; width: max-content; animation: correr 260s linear infinite; }
+.cinta.reversa { animation-direction: reverse; animation-duration: 300s; }
+.cinta.lenta { animation-duration: 340s; }
 @keyframes correr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .comentario { flex: none; font-size: 28px; line-height: 1.3; padding: 18px 28px; border: 1.5px solid var(--tinta); background: var(--fondo); white-space: nowrap; }
 .comentario b { color: var(--azul); font-weight: 700; }
@@ -253,17 +253,101 @@ section.activa.mismo-grupo .titulo, section.activa.mismo-grupo .pie { animation:
 .fila-hueco.fragment.visible .destino { opacity: 1; transform: none; transition-delay: 0.7s; }
 .fila-hueco.fragment .destino { transform: translateX(-24px); }
 
-/* Obra: la etapa sale de su miniatura (JS) y el avance corre hasta ella */
-.etapa-img { animation: none; }
-.obra-camino { margin-top: 8px; }
-.avance { height: 4px; width: 896px; background: rgba(17,17,17,0.1); margin-top: 6px; }
-.avance-lleno { height: 4px; background: var(--azul); width: var(--hasta); animation: avanzar 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.3s; }
-@keyframes avanzar { from { width: var(--desde); } to { width: var(--hasta); } }
-.mini { border-bottom: none; transition: opacity 0.4s; }
-.mini.actual { border-bottom: none; }
-
 /* Cifras que cuentan */
 [data-contar] { font-variant-numeric: tabular-nums; }
+
+/* ===== Tema de la presentación: oscuro, distinto de la app (blanca, Albert Sans) ===== */
+:root {
+  --fondo: #0a101c;
+  --gris: #0f1726;
+  --tinta: #eef2f8;
+  --suave: #9aa6ba;
+  --barra: #2a3a57;
+  --azul: #2f80ff;
+  --acento: #6aa5ff;
+  --linea: rgba(238, 242, 248, 0.18);
+}
+section { background: var(--fondo); color: var(--tinta); font-family: 'Inter', Arial, sans-serif; }
+section.azul { background: #006dff; color: #f7f9fc; }
+.titulo, h2, h3, .marca-texto, .portada-sub, .nombre-paso, .frase-grande { font-family: 'Space Grotesk', 'Inter', Arial, sans-serif; }
+.titulo { font-weight: 600; letter-spacing: -2px; line-height: 1.05; }
+h3 { font-weight: 600; letter-spacing: -0.5px; }
+.texto { color: var(--tinta); }
+.bajada, .chico, .pie p { color: var(--suave); }
+.celdas, .celda { border-color: var(--linea); }
+.grafica { border-bottom-color: var(--linea); }
+.meses p.alta { color: var(--tinta); }
+.pista { background: repeating-linear-gradient(90deg, rgba(238,242,248,0.12) 0 1.5px, transparent 1.5px 250px); }
+.punto.antes, .punto-ley.antes { background: #6b778c; }
+.comentario { background: rgba(238,242,248,0.04); border-color: var(--linea); color: var(--tinta); }
+.comentario b { color: var(--acento); }
+.icono-dibujo { color: var(--acento); }
+
+/* Monitor: el sitio siempre aparece dentro de una pantalla */
+.monitor { display: flex; flex-direction: column; align-items: center; flex: none; }
+.pantalla { background: #04060b; border: 2px solid #2b3647; border-radius: 22px; padding: 18px; box-shadow: 0 40px 90px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.03) inset; }
+.pantalla img, .pantalla video { display: block; border-radius: 6px; background: #ffffff; }
+.cuello { width: 120px; height: 56px; background: linear-gradient(180deg, #2b3647, #161e2c); }
+.base-monitor { width: 380px; height: 14px; border-radius: 8px; background: #2b3647; }
+.monitor.grande .cuello { height: 44px; }
+
+/* Quiénes */
+.dos-tarjetas { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.tarjeta-grande { border: 1.5px solid var(--linea); padding: 56px; display: flex; flex-direction: column; gap: 48px; min-height: 470px; background: rgba(238,242,248,0.02); }
+.tarjeta-grande h3 { font-size: 56px; line-height: 1.1; }
+.firma { margin-top: 40px; font-size: 28px; color: var(--suave); }
+
+/* Por qué */
+.razones h3 { font-size: 48px; }
+
+/* La semana: el sábado es el curso, el resto se enciende con K-Test */
+.semana { display: grid; grid-template-columns: repeat(7, 1fr); gap: 16px; }
+.dia { height: 260px; border: 1.5px solid var(--linea); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; animation: encender 0.6s ease both; animation-delay: calc(var(--i) * 220ms + 1100ms); }
+.dia .nombre-dia { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 40px; font-weight: 600; }
+.dia .uso { font-size: 28px; font-weight: 600; animation: aparecer 0.5s ease both; animation-delay: calc(var(--i) * 220ms + 1300ms); }
+.dia.sabado { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); animation: none; }
+.dia.sabado .uso { animation: none; }
+@keyframes encender { from { background: transparent; border-color: var(--linea); } to { background: var(--azul); border-color: var(--azul); } }
+
+/* Obra: un solo edificio que se construye paso a paso */
+.obra-cuerpo { display: flex; gap: 56px; align-items: center; }
+.obra-dibujo { width: 760px; flex: none; }
+.obra .capa { transform-box: fill-box; transform-origin: 50% 100%; transition: opacity 0.7s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.obra .c-conexion, .obra .c-arboles, .obra .c-estructura, .obra .c-tubos, .obra .c-muros, .obra .c-acabados, .obra .c-seguridad, .obra .c-inauguracion { opacity: 0; }
+.obra .c-estructura, .obra .c-muros, .obra .c-arboles { transform: scaleY(0); }
+.obra .c-seguridad, .obra .c-inauguracion { transform: translateY(-30px); }
+.obra .c-tubos line, .obra .c-conexion line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.3s ease 0.3s; }
+.obra.p1 .c-maqueta { opacity: 0; transform: translateY(-40px); }
+.obra.p1 .c-estructura { opacity: 1; transform: none; }
+.obra.p2 .c-tubos, .obra.p2 .c-conexion { opacity: 1; }
+.obra.p2 .c-tubos line, .obra.p2 .c-conexion line { stroke-dashoffset: 0; }
+.obra.p3 .c-muros { opacity: 1; transform: none; }
+.obra.p3 .c-seguridad { opacity: 1; transform: none; transition-delay: 0.5s; }
+.obra.p4 .c-acabados { opacity: 1; }
+.obra.p4 .c-arboles { opacity: 1; transform: none; transition-delay: 0.4s; }
+.obra.p5 .c-inauguracion { opacity: 1; transform: none; }
+.lista-obra { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; width: 848px; }
+.item-obra { border-left: 3px solid var(--linea); padding: 8px 0 8px 28px; opacity: 0.38; transition: opacity 0.5s ease, border-color 0.5s ease; }
+.nombre-paso { font-size: 32px; font-weight: 600; transition: font-size 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.5s; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.6s ease, opacity 0.5s ease 0.15s, margin 0.5s ease; }
+.chips p { font-size: 24px; padding: 6px 18px; border: 1.5px solid var(--acento); border-radius: 999px; color: var(--tinta); }
+.obra.p1 .n0, .obra.p2 .n1, .obra.p3 .n2, .obra.p4 .n3, .obra.p5 .n4 { opacity: 0.7; }
+.obra[data-paso="0"] .n0, .obra[data-paso="1"] .n1, .obra[data-paso="2"] .n2, .obra[data-paso="3"] .n3, .obra[data-paso="4"] .n4, .obra[data-paso="5"] .n5 { opacity: 1; border-color: var(--acento); }
+.obra[data-paso="0"] .n0 .nombre-paso, .obra[data-paso="1"] .n1 .nombre-paso, .obra[data-paso="2"] .n2 .nombre-paso, .obra[data-paso="3"] .n3 .nombre-paso, .obra[data-paso="4"] .n4 .nombre-paso, .obra[data-paso="5"] .n5 .nombre-paso { font-size: 56px; }
+.obra[data-paso="0"] .n0 .chips, .obra[data-paso="1"] .n1 .chips, .obra[data-paso="2"] .n2 .chips, .obra[data-paso="3"] .n3 .chips, .obra[data-paso="4"] .n4 .chips, .obra[data-paso="5"] .n5 .chips { max-height: 220px; opacity: 1; margin-top: 14px; }
+
+/* Frase final */
+.cierre-frase { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; padding: 128px; display: flex; align-items: center; justify-content: space-between; }
+.frase-grande { font-size: 150px; font-weight: 600; line-height: 1; letter-spacing: -5px; width: 900px; }
+
+/* Ajustes tras la revisión */
+.monitor.grande { margin: 0 auto; }
+#pedimos .frase-grande { font-size: 132px; width: 940px; }
+#pedimos .cierre-frase img { width: 640px !important; height: 561px !important; }
+#constancia .fila .barh { height: 100px; }
+#constancia .filas { gap: 40px; }
+#constancia .fila .etq, #constancia .fila .valor { font-size: 40px; }
+#constancia .grande { font-size: 220px; }
 
 section { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: none; }
 section.activa { display: block; }
@@ -271,9 +355,9 @@ section.activa { display: block; }
 section aside { display: none; }
 .pie .pag::after { content: none; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition: none !important; } }
-#notas { position: fixed; left: 0; right: 0; bottom: 0; max-height: 40vh; overflow: auto; padding: 16px 24px; background: rgba(17,17,17,.94); color: #f3f5f8; font: 18px/1.5 'Albert Sans', Arial, sans-serif; display: none; z-index: 10; }
+#notas { position: fixed; left: 0; right: 0; bottom: 0; max-height: 40vh; overflow: auto; padding: 16px 24px; background: rgba(17,17,17,.94); color: #f3f5f8; font: 18px/1.5 'Inter', Arial, sans-serif; display: none; z-index: 10; }
 #notas.abierta { display: block; }
-#ayuda { position: fixed; right: 16px; bottom: 12px; color: #8a93a3; font: 13px 'Albert Sans', Arial, sans-serif; opacity: 0; transition: opacity .3s; pointer-events: none; }
+#ayuda { position: fixed; right: 16px; bottom: 12px; color: #8a93a3; font: 13px 'Inter', Arial, sans-serif; opacity: 0; transition: opacity .3s; pointer-events: none; }
 body.raton #ayuda { opacity: 1; }
 </style>
 </head>
@@ -288,63 +372,63 @@ body.raton #ayuda { opacity: 1; }
 <aside>Buenas. Venimos a presentar K-Test: la plataforma donde los admitidos de Key practican la PAA desde donde estén.</aside>
 </section>
 
-<section id="que-es" data-transition="fade">
+<section id="que-es">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo">Qué es K-Test</h2>
-<div class="dos">
-<div style="display:flex; flex-direction:column; gap:48px; width:700px;">
-<p class="entra" style="--i:1; font-size:52px; font-weight:600; line-height:1.15; letter-spacing:-1px;">La PAA, practicada como el día del examen, desde donde estés.</p>
-<div style="display:flex; flex-direction:column; gap:24px;">
-<div class="entra" style="--i:2; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><p class="texto">Simulacros completos</p></div>
-<div class="entra" style="--i:3; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><p class="texto">Sprints cortos por tema</p></div>
-<div class="entra" style="--i:4; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><p class="texto">Su nivel, de Emergente a Competente</p></div>
-<div class="entra" style="--i:5; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><p class="texto">Material de estudio</p></div>
+<div style="display:flex; gap:64px; align-items:center; height:100%;">
+<div style="width:640px; flex:none; display:flex; flex-direction:column; gap:56px;">
+<h2 class="titulo" style="margin:0;">La PAA, como el día del examen, desde donde estén</h2>
+<div style="display:flex; flex-direction:column; gap:28px;">
+<div class="entra" style="--i:2; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:44px; height:44px; color:var(--acento);; flex:none;"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><p class="texto">Simulacros completos</p></div>
+<div class="entra" style="--i:3; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:44px; height:44px; color:var(--acento);; flex:none;"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><p class="texto">Sprints de 15 minutos por tema</p></div>
+<div class="entra" style="--i:4; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:44px; height:44px; color:var(--acento);; flex:none;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><p class="texto">Material de estudio</p></div>
 </div>
 </div>
-<img class="captura entra" style="--i:2; width:880px; height:495px;" src="assets/inicio.png" alt="Inicio del estudiante en K-Test: simulacro, sprints, nivel y material">
+<div class="monitor entra" style="--i:1;"><div class="pantalla"><img style="width:900px; height:506px;" src="assets/inicio.png" alt="Inicio del estudiante en K-Test"></div><div class="cuello"></div><div class="base-monitor"></div></div>
 </div>
-<div class="pie"><p>Qué es K-Test</p><p class="pag"></p></div>
-<aside>Una plataforma web: el admitido entra con su cuenta, practica con simulacros y sprints, ve su nivel y estudia el material. Va a crecer con más pruebas y más material.</aside>
+<div class="pie"><p></p><p class="pag"></p></div>
+<aside>Una plataforma web: el admitido entra con su cuenta y practica con simulacros y sprints, y estudia el material.</aside>
 </section>
 
-<section id="por-que" data-transition="fade">
+<section id="por-que">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo">Por qué lo hacemos</h2>
+<h2 class="titulo">Práctica real, a su ritmo y sin costo</h2>
 <div class="razones">
 <div class="razon entra" style="--i:1">
-<svg class="icono-dibujo" style="--i:1" aria-hidden="true" viewBox="0 0 24 24" width="200" height="200" fill="none" stroke="#006dff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path pathLength="1" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/><path pathLength="1" d="m15 10 2 2 3.5-3.5"/></svg>
-<h3>Conoce la prueba</h3>
-<p class="texto">El formato y los ejercicios de Lectura, Redacción y Matemáticas.</p>
+<svg class="icono-dibujo" style="--i:1" aria-hidden="true" viewBox="0 0 24 24" width="220" height="220" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path pathLength="1" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/><path pathLength="1" d="m15 10 2 2 3.5-3.5"/></svg>
+<h3>Conocen la prueba</h3>
+<p class="texto">Formato y ejercicios de Lectura, Redacción y Matemáticas</p>
 </div>
 <div class="razon entra" style="--i:3">
-<svg class="icono-dibujo" style="--i:3" aria-hidden="true" viewBox="0 0 24 24" width="200" height="200" fill="none" stroke="#006dff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><path pathLength="1" d="M12 6.5v3.5l2.2 1.4"/></svg>
-<h3>A tu ritmo</h3>
-<p class="texto">Cuando quieras y desde donde estés.</p>
+<svg class="icono-dibujo" style="--i:3" aria-hidden="true" viewBox="0 0 24 24" width="220" height="220" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><path pathLength="1" d="M12 6.5v3.5l2.2 1.4"/></svg>
+<h3>A su ritmo</h3>
+<p class="texto">Cuando quieran y desde donde estén</p>
 </div>
 <div class="razon entra" style="--i:5">
-<svg class="icono-dibujo" style="--i:5" aria-hidden="true" viewBox="0 0 24 24" width="200" height="200" fill="none" stroke="#006dff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><rect pathLength="1" x="3" y="8" width="18" height="4" rx="1"/><path pathLength="1" d="M12 8v13"/><path pathLength="1" d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path pathLength="1" d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
+<svg class="icono-dibujo" style="--i:5" aria-hidden="true" viewBox="0 0 24 24" width="220" height="220" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><rect pathLength="1" x="3" y="8" width="18" height="4" rx="1"/><path pathLength="1" d="M12 8v13"/><path pathLength="1" d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path pathLength="1" d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
 <h3>Sin costo</h3>
-<p class="texto">Simulacros, sprints y material, sin pagar nada.</p>
+<p class="texto">Simulacros, sprints y material</p>
 </div>
 </div>
-<div class="pie"><p>Qué es K-Test</p><p class="pag"></p></div>
-<aside>Las tres razones de la página de K-Test. Que ningún admitido llegue a la PAA sin haber visto la prueba.</aside>
+<div class="pie"><p></p><p class="pag"></p></div>
+<aside>Que ningún admitido llegue a la PAA sin haber visto la prueba.</aside>
 </section>
 
-<section id="quienes" data-transition="fade">
+<section id="quienes">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo">Quiénes lo hacemos</h2>
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:72px;">
-<div class="entra" style="--i:1; display:flex; flex-direction:column; gap:12px;"><h3>Soham Villacorta</h3><p class="bajada">Experiencia y diseño de la plataforma</p></div>
-<div class="entra" style="--i:2; display:flex; flex-direction:column; gap:12px;"><h3>Iván Figueroa</h3><p class="bajada">Datos y servidor de la plataforma</p></div>
+<h2 class="titulo">Desde abril cambiamos el rumbo del curso</h2>
+<div class="dos-tarjetas">
+<div class="tarjeta-grande entra" style="--i:1">
+<svg class="icono-dibujo" style="--i:1" aria-hidden="true" viewBox="0 0 24 24" width="170" height="170" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><circle pathLength="1" cx="12" cy="12" r="10"/><circle pathLength="1" cx="12" cy="12" r="6"/><circle pathLength="1" cx="12" cy="12" r="2"/></svg>
+<h3>Metodología enfocada en el examen</h3>
 </div>
-<p class="texto entra" style="--i:3; margin:56px 0 32px;">Desde abril cambiamos el rumbo del curso:</p>
-<div class="celdas" style="grid-template-columns:1fr 1fr;">
-<div class="celda primera entra" style="--i:4"><h3 style="color:var(--azul);">Metodología enfocada en el examen</h3><p class="texto">Cada jornada practica el formato, los tiempos y las estrategias de la PAA.</p></div>
-<div class="celda entra" style="--i:5"><h3 style="color:var(--azul);">Técnicas para manejar la ansiedad</h3><p class="texto">Para llegar con calma al día de la prueba.</p></div>
+<div class="tarjeta-grande entra" style="--i:3">
+<svg class="icono-dibujo" style="--i:3" aria-hidden="true" viewBox="0 0 24 24" width="170" height="170" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path pathLength="1" d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path pathLength="1" d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>
+<h3>Técnicas para manejar la ansiedad</h3>
 </div>
-<div class="pie"><p>El curso en números</p><p class="pag"></p></div>
-<aside>Lo que sigue viene de lo que aprendimos dando el curso desde abril.</aside>
+</div>
+<p class="firma entra" style="--i:5">Soham Villacorta e Iván Figueroa, Curso de Preparación para la PAA</p>
+<div class="pie"><p></p><p class="pag"></p></div>
+<aside>Desde abril damos juntos el curso. Cambiamos la metodología para enfocarla en el examen, y en agosto sumamos técnicas para manejar la ansiedad.</aside>
 </section>
 
 <section id="asistencia" data-transition="fade">
@@ -370,7 +454,7 @@ body.raton #ayuda { opacity: 1; }
 <div class="meses media"><p>Abr</p><p class="alta">May</p><p class="alta">Jun</p><p class="alta">Jul</p><p>Ago</p><p>Sep</p><p>Oct</p><p>Nov</p></div>
 </div>
 </div>
-<div class="pie"><p>El curso en números · listas de asistencia, abril a noviembre</p><p class="pag"></p></div>
+<div class="pie"><p>Fuente: listas de asistencia, abril a noviembre de 2026</p><p class="pag"></p></div>
 <aside>184 jóvenes distintos desde abril; una asistencia es una persona en un sábado. Los sábados más llenos: 16 y 30 de mayo, 27 de junio y 25 de julio.</aside>
 </section>
 
@@ -389,16 +473,15 @@ body.raton #ayuda { opacity: 1; }
 <div class="fila"><p class="etq" style="width:220px;">4 o más</p><div class="barh barra-h" style="--i:3; width:348px;"></div><p class="num valor">32</p></div>
 </div>
 </div>
-<div class="pie"><p>El curso en números · sábados asistidos por joven, desde abril</p><p class="pag"></p></div>
-<aside>El curso está pensado para 4 sábados y solo 32 llegaron. K-Test ayuda a que la práctica siga entre sábados y llegue a quien no puede venir.</aside>
+<div class="pie"><p>Fuente: listas de asistencia, abril a noviembre de 2026</p><p class="pag"></p></div>
+<aside>El curso está pensado para 4 sábados y solo 32 llegaron. K-Test ayuda a que la práctica siga entre semana y llegue a quien no puede venir.</aside>
 </section>
 
-<section id="encuestas" class="gris" data-transition="fade">
+<section id="encuestas" data-transition="fade">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo" style="margin-bottom:32px;">Impacto desde agosto</h2>
+<h2 class="titulo" style="margin-bottom:32px;">Desde agosto, el curso mejoró</h2>
 <div class="leyenda entra"><span class="punto-ley antes"></span><p class="chico">Agosto</p><span class="punto-ley ahora"></span><p class="chico">Noviembre</p></div>
 <div class="pesas" role="img" aria-label="Encuesta de cada jornada, agosto contra noviembre, en escala de 1 a 5">
-<p class="grupo-pesas entra" style="--i:1">Subió</p>
 <div class="pesa entra" style="--i:1"><p class="texto">Cumplió expectativas</p><div class="pista"><div class="tramo" style="left:435px; width:375px; --i:1"></div><span class="punto antes" style="left:435px"></span><span class="punto ahora" style="left:810px; --d:-375px; --i:1"></span></div><p class="num chico">3.87 → 4.62</p></div>
 <div class="pesa entra" style="--i:2"><p class="texto">Motivación</p><div class="pista"><div class="tramo" style="left:415px; width:300px; --i:2"></div><span class="punto antes" style="left:415px"></span><span class="punto ahora" style="left:715px; --d:-300px; --i:2"></span></div><p class="num chico">3.83 → 4.43</p></div>
 <div class="pesa entra" style="--i:3"><p class="texto">Me preparó para la PAA</p><div class="pista"><div class="tramo" style="left:520px; width:240px; --i:3"></div><span class="punto antes" style="left:520px"></span><span class="punto ahora" style="left:760px; --d:-240px; --i:3"></span></div><p class="num chico">4.04 → 4.52</p></div>
@@ -406,224 +489,90 @@ body.raton #ayuda { opacity: 1; }
 <p class="grupo-pesas entra" style="--i:6">Por mejorar</p>
 <div class="pesa entra" style="--i:6"><p class="texto">Manejo de la ansiedad</p><div class="pista"><div class="tramo" style="left:55px; width:230px; --i:6"></div><span class="punto antes" style="left:55px"></span><span class="punto ahora" style="left:285px; --d:-230px; --i:6"></span></div><p class="num chico">3.11 → 3.57</p></div>
 <div class="pesa entra" style="--i:7"><p class="texto">Capaz de aplicarlo</p><div class="pista"><div class="tramo" style="left:215px; width:260px; --i:7"></div><span class="punto antes" style="left:215px"></span><span class="punto ahora" style="left:475px; --d:-260px; --i:7"></span></div><p class="num chico">3.43 → 3.95</p></div>
-<div class="pesa entra" style="--i:8"><p class="texto">Claridad para resolver</p><div class="pista"><div class="tramo baja" style="left:645px; width:270px; --i:8"></div><span class="punto antes" style="left:915px"></span><span class="punto ahora baja" style="left:645px; --d:270px; --i:8"></span></div><p class="num chico" style="color:#b54708;">4.83 → 4.29, bajó</p></div>
 <div class="eje"><p>3.0</p><p>3.5</p><p>4.0</p><p>4.5</p><p>5.0</p></div>
 </div>
-<div class="pie"><p>El curso en números · encuesta de cada jornada, escala de 1 a 5</p><p class="pag"></p></div>
-<aside>Agosto, con el formulario nuevo, contra noviembre. Todo subió menos la claridad para resolver. La ansiedad subió desde que trabajamos técnicas para manejarla, pero sigue siendo lo más bajo.</aside>
+<div class="pie"><p>Fuente: encuesta de cada jornada, escala de 1 a 5</p><p class="pag"></p></div>
+<aside>Agosto, con el formulario nuevo, contra noviembre. La ansiedad subió desde que trabajamos técnicas para manejarla, pero sigue siendo lo más bajo. Capaz de aplicarlo también sigue bajo.</aside>
 </section>
 
 <section id="valoracion" data-transition="fade">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo" style="margin-bottom:40px;">Lo que más piden</h2>
+<h2 class="titulo" style="margin-bottom:40px;">Piden practicar más</h2>
 <div class="entra" style="--i:1; display:flex; align-items:baseline; gap:40px;">
 <p class="num" style="font-size:180px; line-height:1; color:var(--azul);" data-contar="62">62</p>
-<p class="portada-sub" style="width:900px;">comentarios piden trabajar <b style="color:var(--azul);">más ejercicios</b></p>
+<p class="portada-sub" style="width:900px;">comentarios piden <b style="color:var(--acento);">más ejercicios</b></p>
 </div>
 <div class="carrusel entra" style="--i:2">
 <div class="cinta" aria-hidden="false"><p class="comentario">Tomar más en cuenta explicar los temas complicados y darle énfasis a los <b>ejercicios</b> de…</p><p class="comentario">Intentar enseñar los <b>ejercicios</b> en una manera de resolver más sencilla y no tan compleja</p><p class="comentario">Aplicaciones de <b>ejercicios</b> y como tener razonamiento matemático</p><p class="comentario"><b>Más ejercicios</b> de otros temas que pueden salir.</p><p class="comentario"><b>Más ejercicios</b> de práctica con los asesores, que ellos nos acompañen en algunos <b>ejercicios</b></p><p class="comentario">Hacer <b>más ejercicios</b> luego de las explicaciones.</p><p class="comentario">Apoyo en mejor explicacion de los <b>ejercicios</b>, temas y lectura matemática para entender…</p><p class="comentario">Hacer <b>más ejercicios</b></p><p class="comentario">Más resolución de <b>ejercicios</b></p><p class="comentario"><b>Ejercicios</b> de lógica y gráficas y líneas</p><p class="comentario">Seguir con los temas y darnos a comprender los <b>ejercicios</b> de la PAA como lo han hecho…</p><p class="comentario">Resolver <b>mas ejercicio</b></p><p class="comentario">La explicacion rapida y solo hacer un <b>ejercicio</b></p><p class="comentario"><b>Más ejercicios</b>.</p><p class="comentario">Teniendo <b>mas ejercicios</b> de práctica que hagamos todos o en grupos</p><p class="comentario">Designando <b>ejercicios</b> a resolver</p><p class="comentario">Más resolución de <b>ejercicios</b>.</p><p class="comentario">Poniendo <b>más ejercicios</b> de práctica</p><p class="comentario">Que no se profundizase tanto en cada <b>ejercicio</b></p><p class="comentario">Que no había muchos <b>ejercicios</b> de practica</p><p class="comentario">Mas teoria o aplicar <b>mas ejercicios</b> faciles y después hacer los examenes</p><p class="comentario">Tomar más en cuenta explicar los temas complicados y darle énfasis a los <b>ejercicios</b> de…</p><p class="comentario">Intentar enseñar los <b>ejercicios</b> en una manera de resolver más sencilla y no tan compleja</p><p class="comentario">Aplicaciones de <b>ejercicios</b> y como tener razonamiento matemático</p><p class="comentario"><b>Más ejercicios</b> de otros temas que pueden salir.</p><p class="comentario"><b>Más ejercicios</b> de práctica con los asesores, que ellos nos acompañen en algunos <b>ejercicios</b></p><p class="comentario">Hacer <b>más ejercicios</b> luego de las explicaciones.</p><p class="comentario">Apoyo en mejor explicacion de los <b>ejercicios</b>, temas y lectura matemática para entender…</p><p class="comentario">Hacer <b>más ejercicios</b></p><p class="comentario">Más resolución de <b>ejercicios</b></p><p class="comentario"><b>Ejercicios</b> de lógica y gráficas y líneas</p><p class="comentario">Seguir con los temas y darnos a comprender los <b>ejercicios</b> de la PAA como lo han hecho…</p><p class="comentario">Resolver <b>mas ejercicio</b></p><p class="comentario">La explicacion rapida y solo hacer un <b>ejercicio</b></p><p class="comentario"><b>Más ejercicios</b>.</p><p class="comentario">Teniendo <b>mas ejercicios</b> de práctica que hagamos todos o en grupos</p><p class="comentario">Designando <b>ejercicios</b> a resolver</p><p class="comentario">Más resolución de <b>ejercicios</b>.</p><p class="comentario">Poniendo <b>más ejercicios</b> de práctica</p><p class="comentario">Que no se profundizase tanto en cada <b>ejercicio</b></p><p class="comentario">Que no había muchos <b>ejercicios</b> de practica</p><p class="comentario">Mas teoria o aplicar <b>mas ejercicios</b> faciles y después hacer los examenes</p></div>
 <div class="cinta reversa" aria-hidden="true"><p class="comentario">Con mas ejemplos de <b>ejercicios</b></p><p class="comentario"><b>Más ejercicios</b> sobre funciones</p><p class="comentario">Incorporando <b>ejercicios</b> más difíciles</p><p class="comentario">Mas participación y <b>mas ejercicios</b></p><p class="comentario">Las diferentes maneras de resolver un <b>ejercicio</b> muy complicado de resolver</p><p class="comentario">Un poco de como realizar <b>más fácilmente ejercicios</b> sin la calculadora</p><p class="comentario">Un poco de inconsistencia en como se llevo la explicacion de temas, <b>ejercicios</b> de…</p><p class="comentario">Resolver <b>mas ejercicios</b> de temas más complejos</p><p class="comentario"><b>Ejercicios</b> de practica para terminar de entender la teoria</p><p class="comentario">Que dure más y explicar <b>más ejercicios</b></p><p class="comentario">Aritmetica y <b>ejercicios</b> aplicativos de razones, etc.</p><p class="comentario"><b>Ejercicios</b> con áreas sombreados y métodos o ideas de resolución rápida o por simple…</p><p class="comentario">En <b>más ejercicios</b> prácticos</p><p class="comentario"><b>Ejercicios</b> más didácticos</p><p class="comentario">Dejar una lista de <b>ejercicios</b> o exámenes para seguir practicando</p><p class="comentario"><b>Ejercicios</b> de probabilidades</p><p class="comentario">Dividir mejor los tiempos y explicar un poco más cada tema y un <b>ejercicio</b> un poco…</p><p class="comentario">Que sea más tipo clase donde aprendamos información relevante necesaria para resolver…</p><p class="comentario">Siendo un poco más detallados y no solo explicar un <b>ejercicio</b> por encima</p><p class="comentario">Dividir <b>ejercicios</b> por tipo</p><p class="comentario">Dar más profundidad a los <b>ejercicios</b>.</p><p class="comentario">Con mas ejemplos de <b>ejercicios</b></p><p class="comentario"><b>Más ejercicios</b> sobre funciones</p><p class="comentario">Incorporando <b>ejercicios</b> más difíciles</p><p class="comentario">Mas participación y <b>mas ejercicios</b></p><p class="comentario">Las diferentes maneras de resolver un <b>ejercicio</b> muy complicado de resolver</p><p class="comentario">Un poco de como realizar <b>más fácilmente ejercicios</b> sin la calculadora</p><p class="comentario">Un poco de inconsistencia en como se llevo la explicacion de temas, <b>ejercicios</b> de…</p><p class="comentario">Resolver <b>mas ejercicios</b> de temas más complejos</p><p class="comentario"><b>Ejercicios</b> de practica para terminar de entender la teoria</p><p class="comentario">Que dure más y explicar <b>más ejercicios</b></p><p class="comentario">Aritmetica y <b>ejercicios</b> aplicativos de razones, etc.</p><p class="comentario"><b>Ejercicios</b> con áreas sombreados y métodos o ideas de resolución rápida o por simple…</p><p class="comentario">En <b>más ejercicios</b> prácticos</p><p class="comentario"><b>Ejercicios</b> más didácticos</p><p class="comentario">Dejar una lista de <b>ejercicios</b> o exámenes para seguir practicando</p><p class="comentario"><b>Ejercicios</b> de probabilidades</p><p class="comentario">Dividir mejor los tiempos y explicar un poco más cada tema y un <b>ejercicio</b> un poco…</p><p class="comentario">Que sea más tipo clase donde aprendamos información relevante necesaria para resolver…</p><p class="comentario">Siendo un poco más detallados y no solo explicar un <b>ejercicio</b> por encima</p><p class="comentario">Dividir <b>ejercicios</b> por tipo</p><p class="comentario">Dar más profundidad a los <b>ejercicios</b>.</p></div>
 <div class="cinta lenta" aria-hidden="true"><p class="comentario"><b>Más ejercicios</b></p><p class="comentario"><b>Ejercicio</b> de funciones</p><p class="comentario">Las explicaciones estaban un poco desordenadas y parecian <b>ejercicios</b> escogidos al…</p><p class="comentario">Tal vez hacer <b>ejercicios</b> un poco más lentos y explicar de donde sale cada cosa</p><p class="comentario">Más resoluciones de <b>ejercicios</b>.</p><p class="comentario">Un poco <b>más de ejercicios</b> pero estuvo bastante bien la sesión de hoy</p><p class="comentario">Resolver <b>ejercicios</b> mas difíciles que los de la PAA</p><p class="comentario">Que no hubo mucha interracion al explicar los <b>ejercicios</b></p><p class="comentario">Resolver <b>ejercicios</b> de manera conjunta</p><p class="comentario">Aun más profundidad en los <b>ejercicios</b></p><p class="comentario">Explicar <b>mas los ejercicio</b></p><p class="comentario"><b>Más ejercicios</b> de aprendo libre</p><p class="comentario">La resolución de los <b>ejercicios</b> de la prueba simulacro</p><p class="comentario">Quizá explicar <b>más ejercicios</b></p><p class="comentario">Una explicación con más ejemplos de diferentes variantes de <b>ejercicios</b></p><p class="comentario">No me gustó algunos <b>ejercicios</b> algo complicados de la prueba que no estuvieron en la clase</p><p class="comentario">Con un poco de explicación mas clara y <b>más ejercicios</b></p><p class="comentario">Deteniéndose a explicar más a detalle cada <b>ejercicio</b> y el porqué de su respuesta</p><p class="comentario">Con <b>más ejercicios</b> de práctica</p><p class="comentario">Solo haciendo <b>mas ejercicios</b> juntos de problemas que sean difícil de los examenes</p><p class="comentario"><b>Más ejercicios</b></p><p class="comentario"><b>Ejercicio</b> de funciones</p><p class="comentario">Las explicaciones estaban un poco desordenadas y parecian <b>ejercicios</b> escogidos al…</p><p class="comentario">Tal vez hacer <b>ejercicios</b> un poco más lentos y explicar de donde sale cada cosa</p><p class="comentario">Más resoluciones de <b>ejercicios</b>.</p><p class="comentario">Un poco <b>más de ejercicios</b> pero estuvo bastante bien la sesión de hoy</p><p class="comentario">Resolver <b>ejercicios</b> mas difíciles que los de la PAA</p><p class="comentario">Que no hubo mucha interracion al explicar los <b>ejercicios</b></p><p class="comentario">Resolver <b>ejercicios</b> de manera conjunta</p><p class="comentario">Aun más profundidad en los <b>ejercicios</b></p><p class="comentario">Explicar <b>mas los ejercicio</b></p><p class="comentario"><b>Más ejercicios</b> de aprendo libre</p><p class="comentario">La resolución de los <b>ejercicios</b> de la prueba simulacro</p><p class="comentario">Quizá explicar <b>más ejercicios</b></p><p class="comentario">Una explicación con más ejemplos de diferentes variantes de <b>ejercicios</b></p><p class="comentario">No me gustó algunos <b>ejercicios</b> algo complicados de la prueba que no estuvieron en la clase</p><p class="comentario">Con un poco de explicación mas clara y <b>más ejercicios</b></p><p class="comentario">Deteniéndose a explicar más a detalle cada <b>ejercicio</b> y el porqué de su respuesta</p><p class="comentario">Con <b>más ejercicios</b> de práctica</p><p class="comentario">Solo haciendo <b>mas ejercicios</b> juntos de problemas que sean difícil de los examenes</p></div>
 </div>
-<div class="pie"><p>El curso en números · comentarios de las encuestas, abril a noviembre</p><p class="pag"></p></div>
+<div class="pie"><p>Fuente: comentarios de las encuestas, abril a noviembre de 2026</p><p class="pag"></p></div>
 <aside>Son sus propias palabras: más ejercicios, más difíciles, mejor explicados, para seguir practicando. Eso es K-Test.</aside>
 </section>
 
-<section id="hueco" class="tinta" data-transition="fade">
+<section id="hueco">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo">Lo que el sábado no alcanza</h2>
-<div class="fila-hueco cabeza"><p class="chico">Hoy</p><span></span><p class="chico">Con K-Test</p></div>
-<div class="fragment fila-hueco"><p class="texto">Viven lejos del campus</p><span class="guia"></span><p class="texto destino">Practican desde su casa</p></div>
-<div class="fragment fila-hueco"><p class="texto">No pueden venir los 4 sábados</p><span class="guia"></span><p class="texto destino">Siguen practicando entre sábados</p></div>
-<div class="fragment fila-hueco ultima"><p class="texto">Llegan a la PAA sin conocer la prueba</p><span class="guia"></span><p class="texto destino">Hacen el simulacro con preguntas reales</p></div>
-<div class="pie"><p>El hueco que llena K-Test</p><p class="pag"></p></div>
-<aside>Cada clic muestra una fila: el problema y, siguiendo la flecha, lo que hace K-Test.</aside>
+<h2 class="titulo" style="margin-bottom:24px;">Llegan a la PAA sin conocer la prueba</h2>
+<p class="bajada entra" style="--i:1; margin-bottom:72px;">Viven lejos o no pueden venir los 4 sábados.</p>
+<div class="semana" role="img" aria-label="Semana: el sábado es el curso presencial; de lunes a viernes y el domingo practican con K-Test">
+<div class="dia" style="--i:0"><p class="nombre-dia">Lun</p><p class="uso">K-Test</p></div>
+<div class="dia" style="--i:1"><p class="nombre-dia">Mar</p><p class="uso">K-Test</p></div>
+<div class="dia" style="--i:2"><p class="nombre-dia">Mié</p><p class="uso">K-Test</p></div>
+<div class="dia" style="--i:3"><p class="nombre-dia">Jue</p><p class="uso">K-Test</p></div>
+<div class="dia" style="--i:4"><p class="nombre-dia">Vie</p><p class="uso">K-Test</p></div>
+<div class="dia sabado"><p class="nombre-dia">Sáb</p><p class="uso">Curso</p></div>
+<div class="dia" style="--i:5"><p class="nombre-dia">Dom</p><p class="uso">K-Test</p></div>
+</div>
+<p class="texto entra" style="--i:9; margin-top:56px;">Con K-Test siguen practicando entre semana, desde su casa.</p>
+<div class="pie"><p></p><p class="pag"></p></div>
+<aside>La razón principal: llegan a la PAA sin haber visto la prueba. El sábado presencial se queda; K-Test llena el resto de la semana.</aside>
 </section>
 
-<section id="demo" class="tinta" style="padding:0;" data-transition="fade">
-<video style="position:absolute; left:0; top:0; width:1920px; height:1080px; object-fit:contain;" poster="assets/examen.png" src="assets/demo.webm" muted loop playsinline preload="auto"  aria-label="Demo de K-Test: página de inicio, un sprint de Matemáticas con avance automático, resultados por nivel y portal del docente"></video>
-<aside>Demo de unos 75 segundos, sin sonido; la narro en vivo. 1) La página de K-Test. 2) El inicio del estudiante: simulacro, sprints y su nivel. 3) Un sprint de Matemáticas: al responder pasa sola a la siguiente; se puede descartar una opción y marcar para revisar. 4) Resultados por nivel. 5) El portal del docente con el avance de cada estudiante. Un clic pausa el video.</aside>
+<section id="demo" style="padding:72px 128px;">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<div class="monitor grande entra"><div class="pantalla"><video style="width:1400px; height:788px; object-fit:contain;" poster="assets/examen.png" src="assets/demo.webm" muted loop playsinline preload="auto"  aria-label="Demo de K-Test: inicio, un sprint de Matemáticas con avance automático, resultados por nivel y portal del docente"></video></div><div class="cuello"></div><div class="base-monitor"></div></div>
+<aside>Demo de unos 75 segundos, sin sonido. 1) La página de K-Test. 2) El inicio del estudiante. 3) Un sprint de Matemáticas: al responder pasa sola a la siguiente; se puede descartar una opción y marcar para revisar. 4) Resultados por nivel. 5) El portal del docente. Un clic pausa el video.</aside>
 </section>
 
-<section id="prototipo" data-transition="fade">
+<section id="obra" class="obra" data-pasos="5">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo">Lo que ya hace el prototipo</h2>
-<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px;">
-<div class="entra" style="--i:1; display:flex; flex-direction:column; gap:20px;">
-<img class="captura" style="width:528px; height:297px;" src="assets/examen.png" alt="Pregunta de Matemáticas con cronómetro, fórmulas y opción descartada">
-<h3>Como el día de la prueba</h3>
-<p class="chico">Cronómetro, fórmulas, marcar y descartar opciones.</p>
+<h2 class="titulo" style="margin-bottom:24px;">Lo que vieron es un prototipo</h2>
+<div class="obra-cuerpo">
+<div class="obra-dibujo"><svg class="obra-svg" aria-label="Ilustración de un edificio que se construye paso a paso" viewBox="-221 -177 586 513" width="760" height="666" xmlns="http://www.w3.org/2000/svg"><g class="capa c-base"><polygon points="-207.2,119.6 55.8,271.4 55.8,264.5 -207.2,112.7" fill="#e6eaf0" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="262.9,151.8 55.8,271.4 55.8,264.5 262.9,144.9" fill="#d5dbe4" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="0.0,-6.9 262.9,144.9 55.8,264.5 -207.2,112.7" fill="#f5f7fa" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /></g><g class="capa c-conexion"><line pathLength="1" x1="75.7" y1="202.4" x2="35.9" y2="225.4" stroke="#006dff" stroke-width="3.5" stroke-linecap="round" /><line pathLength="1" x1="35.9" y1="225.4" x2="119.5" y2="273.7" stroke="#006dff" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="8 7"/><polygon points="95.6,294.4 143.4,322.0 143.4,262.2 95.6,234.6" fill="#cfe1ff" stroke="#006dff" stroke-width="1.6" stroke-linejoin="round" /><polygon points="191.2,294.4 143.4,322.0 143.4,262.2 191.2,234.6" fill="#b5d1ff" stroke="#006dff" stroke-width="1.6" stroke-linejoin="round" /><polygon points="143.4,207.0 191.2,234.6 143.4,262.2 95.6,234.6" fill="#e6f0ff" stroke="#006dff" stroke-width="1.6" stroke-linejoin="round" /></g><g class="capa c-arboles"><line x1="0.0" y1="20.7" x2="0.0" y2="-2.3" stroke="#111111" stroke-width="3" stroke-linecap="round" /><ellipse cx="0.0" cy="-18.4" rx="17.5" ry="10.8" fill="#cfe1ff" stroke="#006dff" stroke-width="1.4"/><line x1="-63.7" y1="57.5" x2="-63.7" y2="34.5" stroke="#111111" stroke-width="3" stroke-linecap="round" /><ellipse cx="-63.7" cy="18.4" rx="17.5" ry="10.8" fill="#cfe1ff" stroke="#006dff" stroke-width="1.4"/><line x1="215.1" y1="140.3" x2="215.1" y2="117.3" stroke="#111111" stroke-width="3" stroke-linecap="round" /><ellipse cx="215.1" cy="101.2" rx="17.5" ry="10.8" fill="#cfe1ff" stroke="#006dff" stroke-width="1.4"/></g><g class="capa c-maqueta"><polygon points="-111.5,103.5 -8.0,163.3 -8.0,16.1 -111.5,-43.7" fill="#eef1f5" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="103.6,98.9 -8.0,163.3 -8.0,16.1 103.6,-48.3" fill="#dde3eb" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="0.0,-108.1 103.6,-48.3 -8.0,16.1 -111.5,-43.7" fill="#ffffff" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><line x1="-111.5" y1="66.7" x2="-8.0" y2="126.5" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /><line x1="103.6" y1="62.1" x2="-8.0" y2="126.5" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /><line x1="-111.5" y1="29.9" x2="-8.0" y2="89.7" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /><line x1="103.6" y1="25.3" x2="-8.0" y2="89.7" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /><line x1="-111.5" y1="-6.9" x2="-8.0" y2="52.9" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /><line x1="103.6" y1="-11.5" x2="-8.0" y2="52.9" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /><polygon points="-8.0,163.3 67.7,207.0 67.7,133.4 -8.0,89.7" fill="#eef1f5" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="179.3,142.6 67.7,207.0 67.7,133.4 179.3,69.0" fill="#dde3eb" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="103.6,25.3 179.3,69.0 67.7,133.4 -8.0,89.7" fill="#ffffff" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><line x1="-8.0" y1="126.5" x2="67.7" y2="170.2" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /><line x1="179.3" y1="105.8" x2="67.7" y2="170.2" stroke="#9aa3b2" stroke-width="1" stroke-linecap="round" /></g><g class="capa c-estructura"><polygon points="-5.6,42.3 0.0,45.5 0.0,12.4 -5.6,9.2" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="5.6,42.3 0.0,45.5 0.0,12.4 5.6,9.2" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,6.0 5.6,9.2 0.0,12.4 -5.6,9.2" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="92.4,98.9 98.0,102.1 98.0,69.0 92.4,65.8" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,98.9 98.0,102.1 98.0,69.0 103.6,65.8" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="98.0,62.6 103.6,65.8 98.0,69.0 92.4,65.8" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,103.5 -106.0,106.7 -106.0,73.6 -111.5,70.4" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-100.4,103.5 -106.0,106.7 -106.0,73.6 -100.4,70.4" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-106.0,67.2 -100.4,70.4 -106.0,73.6 -111.5,70.4" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-13.5,160.1 -8.0,163.3 -8.0,130.2 -13.5,127.0" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-2.4,160.1 -8.0,163.3 -8.0,130.2 -2.4,127.0" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,123.7 -2.4,127.0 -8.0,130.2 -13.5,127.0" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-62.5,131.8 -57.0,135.0 -57.0,101.9 -62.5,98.7" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-51.4,131.8 -57.0,135.0 -57.0,101.9 -51.4,98.7" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-57.0,95.4 -51.4,98.7 -57.0,101.9 -62.5,98.7" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="39.4,129.5 45.0,132.7 45.0,99.6 39.4,96.4" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="50.6,129.5 45.0,132.7 45.0,99.6 50.6,96.4" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="45.0,93.1 50.6,96.4 45.0,99.6 39.4,96.4" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,70.4 -8.0,130.2 -8.0,126.5 -111.5,66.7" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,65.8 -8.0,130.2 -8.0,126.5 103.6,62.1" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,2.3 103.6,62.1 -8.0,126.5 -111.5,66.7" fill="#e9edf2" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-5.6,5.5 0.0,8.7 0.0,-24.4 -5.6,-27.6" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="5.6,5.5 0.0,8.7 0.0,-24.4 5.6,-27.6" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,-30.8 5.6,-27.6 0.0,-24.4 -5.6,-27.6" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="92.4,62.1 98.0,65.3 98.0,32.2 92.4,29.0" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,62.1 98.0,65.3 98.0,32.2 103.6,29.0" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="98.0,25.8 103.6,29.0 98.0,32.2 92.4,29.0" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,66.7 -106.0,69.9 -106.0,36.8 -111.5,33.6" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-100.4,66.7 -106.0,69.9 -106.0,36.8 -100.4,33.6" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-106.0,30.4 -100.4,33.6 -106.0,36.8 -111.5,33.6" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-13.5,123.3 -8.0,126.5 -8.0,93.4 -13.5,90.2" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-2.4,123.3 -8.0,126.5 -8.0,93.4 -2.4,90.2" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,86.9 -2.4,90.2 -8.0,93.4 -13.5,90.2" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-62.5,95.0 -57.0,98.2 -57.0,65.1 -62.5,61.9" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-51.4,95.0 -57.0,98.2 -57.0,65.1 -51.4,61.9" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-57.0,58.6 -51.4,61.9 -57.0,65.1 -62.5,61.9" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="39.4,92.7 45.0,95.9 45.0,62.8 39.4,59.6" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="50.6,92.7 45.0,95.9 45.0,62.8 50.6,59.6" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="45.0,56.3 50.6,59.6 45.0,62.8 39.4,59.6" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,33.6 -8.0,93.4 -8.0,89.7 -111.5,29.9" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,29.0 -8.0,93.4 -8.0,89.7 103.6,25.3" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,-34.5 103.6,25.3 -8.0,89.7 -111.5,29.9" fill="#e9edf2" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-5.6,-31.3 0.0,-28.1 0.0,-61.2 -5.6,-64.4" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="5.6,-31.3 0.0,-28.1 0.0,-61.2 5.6,-64.4" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,-67.6 5.6,-64.4 0.0,-61.2 -5.6,-64.4" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="92.4,25.3 98.0,28.5 98.0,-4.6 92.4,-7.8" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,25.3 98.0,28.5 98.0,-4.6 103.6,-7.8" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="98.0,-11.0 103.6,-7.8 98.0,-4.6 92.4,-7.8" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,29.9 -106.0,33.1 -106.0,-0.0 -111.5,-3.2" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-100.4,29.9 -106.0,33.1 -106.0,-0.0 -100.4,-3.2" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-106.0,-6.4 -100.4,-3.2 -106.0,-0.0 -111.5,-3.2" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-13.5,86.5 -8.0,89.7 -8.0,56.6 -13.5,53.4" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-2.4,86.5 -8.0,89.7 -8.0,56.6 -2.4,53.4" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,50.1 -2.4,53.4 -8.0,56.6 -13.5,53.4" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-62.5,58.2 -57.0,61.4 -57.0,28.3 -62.5,25.1" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-51.4,58.2 -57.0,61.4 -57.0,28.3 -51.4,25.1" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-57.0,21.8 -51.4,25.1 -57.0,28.3 -62.5,25.1" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="39.4,55.9 45.0,59.1 45.0,26.0 39.4,22.8" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="50.6,55.9 45.0,59.1 45.0,26.0 50.6,22.8" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="45.0,19.5 50.6,22.8 45.0,26.0 39.4,22.8" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,-3.2 -8.0,56.6 -8.0,52.9 -111.5,-6.9" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,-7.8 -8.0,56.6 -8.0,52.9 103.6,-11.5" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,-71.3 103.6,-11.5 -8.0,52.9 -111.5,-6.9" fill="#e9edf2" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-5.6,-68.1 0.0,-64.9 0.0,-98.0 -5.6,-101.2" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="5.6,-68.1 0.0,-64.9 0.0,-98.0 5.6,-101.2" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,-104.4 5.6,-101.2 0.0,-98.0 -5.6,-101.2" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="92.4,-11.5 98.0,-8.3 98.0,-41.4 92.4,-44.6" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,-11.5 98.0,-8.3 98.0,-41.4 103.6,-44.6" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="98.0,-47.8 103.6,-44.6 98.0,-41.4 92.4,-44.6" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,-6.9 -106.0,-3.7 -106.0,-36.8 -111.5,-40.0" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-100.4,-6.9 -106.0,-3.7 -106.0,-36.8 -100.4,-40.0" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-106.0,-43.2 -100.4,-40.0 -106.0,-36.8 -111.5,-40.0" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-13.5,49.7 -8.0,52.9 -8.0,19.8 -13.5,16.6" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-2.4,49.7 -8.0,52.9 -8.0,19.8 -2.4,16.6" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,13.3 -2.4,16.6 -8.0,19.8 -13.5,16.6" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-62.5,21.4 -57.0,24.6 -57.0,-8.5 -62.5,-11.7" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-51.4,21.4 -57.0,24.6 -57.0,-8.5 -51.4,-11.7" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-57.0,-15.0 -51.4,-11.7 -57.0,-8.5 -62.5,-11.7" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="39.4,19.1 45.0,22.3 45.0,-10.8 39.4,-14.0" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="50.6,19.1 45.0,22.3 45.0,-10.8 50.6,-14.0" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="45.0,-17.3 50.6,-14.0 45.0,-10.8 39.4,-14.0" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,-40.0 -8.0,19.8 -8.0,16.1 -111.5,-43.7" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,-44.6 -8.0,19.8 -8.0,16.1 103.6,-48.3" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,-108.1 103.6,-48.3 -8.0,16.1 -111.5,-43.7" fill="#e9edf2" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="98.0,102.1 103.6,105.3 103.6,72.2 98.0,69.0" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="109.2,102.1 103.6,105.3 103.6,72.2 109.2,69.0" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,65.8 109.2,69.0 103.6,72.2 98.0,69.0" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="168.1,142.6 173.7,145.8 173.7,112.7 168.1,109.5" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="179.3,142.6 173.7,145.8 173.7,112.7 179.3,109.5" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="173.7,106.3 179.3,109.5 173.7,112.7 168.1,109.5" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,163.3 -2.4,166.5 -2.4,133.4 -8.0,130.2" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="3.2,163.3 -2.4,166.5 -2.4,133.4 3.2,130.2" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-2.4,127.0 3.2,130.2 -2.4,133.4 -8.0,130.2" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="62.1,203.8 67.7,207.0 67.7,173.9 62.1,170.7" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="73.3,203.8 67.7,207.0 67.7,173.9 73.3,170.7" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="67.7,167.4 73.3,170.7 67.7,173.9 62.1,170.7" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="27.1,183.5 32.7,186.8 32.7,153.6 27.1,150.4" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="38.2,183.5 32.7,186.8 32.7,153.6 38.2,150.4" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="32.7,147.2 38.2,150.4 32.7,153.6 27.1,150.4" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="115.1,173.2 120.7,176.4 120.7,143.3 115.1,140.1" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="126.3,173.2 120.7,176.4 120.7,143.3 126.3,140.1" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="120.7,136.8 126.3,140.1 120.7,143.3 115.1,140.1" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,130.2 67.7,173.9 67.7,170.2 -8.0,126.5" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="179.3,109.5 67.7,173.9 67.7,170.2 179.3,105.8" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,62.1 179.3,105.8 67.7,170.2 -8.0,126.5" fill="#e9edf2" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="98.0,65.3 103.6,68.5 103.6,35.4 98.0,32.2" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="109.2,65.3 103.6,68.5 103.6,35.4 109.2,32.2" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,29.0 109.2,32.2 103.6,35.4 98.0,32.2" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="168.1,105.8 173.7,109.0 173.7,75.9 168.1,72.7" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="179.3,105.8 173.7,109.0 173.7,75.9 179.3,72.7" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="173.7,69.5 179.3,72.7 173.7,75.9 168.1,72.7" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,126.5 -2.4,129.7 -2.4,96.6 -8.0,93.4" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="3.2,126.5 -2.4,129.7 -2.4,96.6 3.2,93.4" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-2.4,90.2 3.2,93.4 -2.4,96.6 -8.0,93.4" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="62.1,167.0 67.7,170.2 67.7,137.1 62.1,133.9" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="73.3,167.0 67.7,170.2 67.7,137.1 73.3,133.9" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="67.7,130.6 73.3,133.9 67.7,137.1 62.1,133.9" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="27.1,146.7 32.7,150.0 32.7,116.8 27.1,113.6" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="38.2,146.7 32.7,150.0 32.7,116.8 38.2,113.6" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="32.7,110.4 38.2,113.6 32.7,116.8 27.1,113.6" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="115.1,136.4 120.7,139.6 120.7,106.5 115.1,103.3" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="126.3,136.4 120.7,139.6 120.7,106.5 126.3,103.3" fill="#9ea8b7" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="120.7,100.0 126.3,103.3 120.7,106.5 115.1,103.3" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,93.4 67.7,137.1 67.7,133.4 -8.0,89.7" fill="#c9d0da" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="179.3,72.7 67.7,137.1 67.7,133.4 179.3,69.0" fill="#b3bcc9" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,25.3 179.3,69.0 67.7,133.4 -8.0,89.7" fill="#e9edf2" stroke="#111111" stroke-width="1" stroke-linejoin="round" /></g><g class="capa c-tubos"><line pathLength="1" x1="-8.0" y1="149.5" x2="-8.0" y2="2.3" stroke="#006dff" stroke-width="4" stroke-linecap="round" /><line pathLength="1" x1="-79.7" y1="108.1" x2="-79.7" y2="-39.1" stroke="#006dff" stroke-width="4" stroke-linecap="round" /><line pathLength="1" x1="-79.7" y1="-29.9" x2="-8.0" y2="11.5" stroke="#006dff" stroke-width="3" stroke-linecap="round" /><line pathLength="1" x1="67.7" y1="193.2" x2="67.7" y2="119.6" stroke="#006dff" stroke-width="4" stroke-linecap="round" /><line pathLength="1" x1="23.9" y1="167.9" x2="23.9" y2="94.3" stroke="#006dff" stroke-width="4" stroke-linecap="round" /><line pathLength="1" x1="23.9" y1="103.5" x2="67.7" y2="128.8" stroke="#006dff" stroke-width="3" stroke-linecap="round" /></g><g class="capa c-muros"><polygon points="-111.5,103.5 -8.0,163.3 -8.0,16.1 -111.5,-43.7" fill="#e9edf2" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="103.6,98.9 -8.0,163.3 -8.0,16.1 103.6,-48.3" fill="#d9dfe7" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="0.0,-108.1 103.6,-48.3 -8.0,16.1 -111.5,-43.7" fill="#ffffff" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="-8.0,163.3 67.7,207.0 67.7,133.4 -8.0,89.7" fill="#e9edf2" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="179.3,142.6 67.7,207.0 67.7,133.4 179.3,69.0" fill="#d9dfe7" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="103.6,25.3 179.3,69.0 67.7,133.4 -8.0,89.7" fill="#ffffff" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="-81.7,120.7 -64.5,130.6 -64.5,102.1 -81.7,92.2" fill="#111111" stroke="#111111" stroke-width="1" stroke-linejoin="round" /></g><g class="capa c-acabados"><polygon points="-111.5,103.5 -8.0,163.3 -8.0,16.1 -111.5,-43.7" fill="#f2f4f7" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="103.6,98.9 -8.0,163.3 -8.0,16.1 103.6,-48.3" fill="#e3e8ef" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="0.0,-108.1 103.6,-48.3 -8.0,16.1 -111.5,-43.7" fill="#ffffff" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="-103.6,99.8 -86.4,109.7 -86.4,87.6 -103.6,77.7" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-59.8,125.1 -42.6,135.0 -42.6,112.9 -59.8,103.0" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-37.8,137.8 -20.7,147.7 -20.7,125.6 -37.8,115.7" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="95.6,95.2 68.5,110.9 68.5,88.8 95.6,73.1" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="63.7,113.6 36.7,129.3 36.7,107.2 63.7,91.5" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="31.9,132.0 4.8,147.7 4.8,125.6 31.9,109.9" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-103.6,63.0 -86.4,72.9 -86.4,50.8 -103.6,40.9" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-81.7,75.7 -64.5,85.6 -64.5,63.5 -81.7,53.6" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-59.8,88.3 -42.6,98.2 -42.6,76.1 -59.8,66.2" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-37.8,101.0 -20.7,110.9 -20.7,88.8 -37.8,78.9" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="95.6,58.4 68.5,74.1 68.5,52.0 95.6,36.3" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="63.7,76.8 36.7,92.5 36.7,70.4 63.7,54.7" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="31.9,95.2 4.8,110.9 4.8,88.8 31.9,73.1" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-103.6,26.2 -86.4,36.1 -86.4,14.0 -103.6,4.1" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-81.7,38.9 -64.5,48.8 -64.5,26.7 -81.7,16.8" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-59.8,51.5 -42.6,61.4 -42.6,39.3 -59.8,29.4" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-37.8,64.2 -20.7,74.1 -20.7,52.0 -37.8,42.1" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="95.6,21.6 68.5,37.3 68.5,15.2 95.6,-0.5" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="63.7,40.0 36.7,55.7 36.7,33.6 63.7,17.9" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="31.9,58.4 4.8,74.1 4.8,52.0 31.9,36.3" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-103.6,-10.6 -86.4,-0.7 -86.4,-22.8 -103.6,-32.7" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-81.7,2.1 -64.5,12.0 -64.5,-10.1 -81.7,-20.0" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-59.8,14.7 -42.6,24.6 -42.6,2.5 -59.8,-7.4" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-37.8,27.4 -20.7,37.3 -20.7,15.2 -37.8,5.3" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="95.6,-15.2 68.5,0.5 68.5,-21.6 95.6,-37.3" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="63.7,3.2 36.7,18.9 36.7,-3.2 63.7,-18.9" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="31.9,21.6 4.8,37.3 4.8,15.2 31.9,-0.5" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-111.5,-38.2 -8.0,21.6 -8.0,16.1 -111.5,-43.7" fill="#006dff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="103.6,-42.8 -8.0,21.6 -8.0,16.1 103.6,-48.3" fill="#006dff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-8.0,163.3 67.7,207.0 67.7,133.4 -8.0,89.7" fill="#f2f4f7" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="179.3,142.6 67.7,207.0 67.7,133.4 179.3,69.0" fill="#e3e8ef" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="103.6,25.3 179.3,69.0 67.7,133.4 -8.0,89.7" fill="#ffffff" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="0.0,159.6 15.1,168.4 15.1,146.3 0.0,137.5" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="19.9,171.1 35.1,179.9 35.1,157.8 19.9,149.0" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="39.8,182.6 55.0,191.4 55.0,169.3 39.8,160.5" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="171.3,138.9 144.2,154.6 144.2,132.5 171.3,116.8" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="139.4,157.3 112.3,173.0 112.3,150.9 139.4,135.2" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="107.6,175.7 80.5,191.4 80.5,169.3 107.6,153.6" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="0.0,122.8 15.1,131.6 15.1,109.5 0.0,100.7" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="19.9,134.3 35.1,143.1 35.1,121.0 19.9,112.2" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="39.8,145.8 55.0,154.6 55.0,132.5 39.8,123.7" fill="#9cc4ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="171.3,102.1 144.2,117.8 144.2,95.7 171.3,80.0" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="139.4,120.5 112.3,136.2 112.3,114.1 139.4,98.4" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="107.6,138.9 80.5,154.6 80.5,132.5 107.6,116.8" fill="#7fb2ff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><polygon points="-81.7,120.7 -64.5,130.6 -64.5,102.1 -81.7,92.2" fill="#111111" stroke="#111111" stroke-width="1" stroke-linejoin="round" /></g><g class="capa c-seguridad"><polygon points="-169.3,106.9 -145.4,120.7 -145.4,93.1 -169.3,79.3" fill="#e9edf2" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="-121.5,107.0 -145.4,120.7 -145.4,93.1 -121.5,79.4" fill="#d9dfe7" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="-145.4,65.5 -121.5,79.4 -145.4,93.1 -169.3,79.3" fill="#ffffff" stroke="#111111" stroke-width="1.4" stroke-linejoin="round" /><polygon points="-173.3,79.4 -145.4,95.5 -145.4,92.2 -173.3,76.1" fill="#111111" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-117.5,79.4 -145.4,95.5 -145.4,92.2 -117.5,76.1" fill="#111111" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><polygon points="-145.4,60.0 -117.5,76.1 -145.4,92.2 -173.3,76.1" fill="#111111" stroke="#111111" stroke-width="1" stroke-linejoin="round" /><line x1="-151.4" y1="140.3" x2="-151.4" y2="119.6" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="-129.5" y1="152.9" x2="-129.5" y2="132.2" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="-107.6" y1="165.6" x2="-107.6" y2="144.9" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="-85.6" y1="178.2" x2="-85.6" y2="157.6" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="-63.7" y1="190.9" x2="-63.7" y2="170.2" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="-41.8" y1="203.5" x2="-41.8" y2="182.8" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="-19.9" y1="216.2" x2="-19.9" y2="195.5" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="2.0" y1="228.8" x2="2.0" y2="208.2" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="23.9" y1="241.5" x2="23.9" y2="220.8" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="-151.4" y1="121.9" x2="23.9" y2="223.1" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="247.0" y1="149.5" x2="247.0" y2="128.8" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="225.1" y1="162.1" x2="225.1" y2="141.4" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="203.2" y1="174.8" x2="203.2" y2="154.1" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="181.3" y1="187.4" x2="181.3" y2="166.8" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="159.3" y1="200.1" x2="159.3" y2="179.4" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="137.4" y1="212.8" x2="137.4" y2="192.1" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="115.5" y1="225.4" x2="115.5" y2="204.7" stroke="#111111" stroke-width="2" stroke-linecap="round" /><line x1="247.0" y1="131.1" x2="115.5" y2="207.0" stroke="#111111" stroke-width="2" stroke-linecap="round" /></g><g class="capa c-inauguracion"><line x1="-133.5" y1="100.0" x2="-45.8" y2="150.7" stroke="#006dff" stroke-width="5" stroke-linecap="round" /><ellipse cx="-89.6" cy="125.3" rx="5.5" ry="3.4" fill="#006dff" stroke="#006dff" stroke-width="1"/><line x1="187.2" y1="156.4" x2="187.2" y2="55.2" stroke="#111111" stroke-width="2.5" stroke-linecap="round" /><polygon points="187.2,55.2 159.3,80.5 187.2,73.6" fill="#006dff" stroke="#006dff" stroke-width="1" stroke-linejoin="round" /><line x1="-131.5" y1="138.0" x2="-131.5" y2="123.3" stroke="#111111" stroke-width="5" stroke-linecap="round" /><ellipse cx="-131.5" cy="117.3" rx="4.1" ry="2.6" fill="#111111" stroke="#111111" stroke-width="1"/><line x1="-117.5" y1="152.9" x2="-117.5" y2="138.2" stroke="#111111" stroke-width="5" stroke-linecap="round" /><ellipse cx="-117.5" cy="132.2" rx="4.1" ry="2.6" fill="#111111" stroke="#111111" stroke-width="1"/><line x1="-87.6" y1="163.3" x2="-87.6" y2="148.6" stroke="#111111" stroke-width="5" stroke-linecap="round" /><ellipse cx="-87.6" cy="142.6" rx="4.1" ry="2.6" fill="#111111" stroke="#111111" stroke-width="1"/><line x1="-73.7" y1="178.2" x2="-73.7" y2="163.5" stroke="#111111" stroke-width="5" stroke-linecap="round" /><ellipse cx="-73.7" cy="157.6" rx="4.1" ry="2.6" fill="#111111" stroke="#111111" stroke-width="1"/><line x1="-45.8" y1="185.1" x2="-45.8" y2="170.4" stroke="#111111" stroke-width="5" stroke-linecap="round" /><ellipse cx="-45.8" cy="164.4" rx="4.1" ry="2.6" fill="#111111" stroke="#111111" stroke-width="1"/></g></svg></div>
+<ol class="lista-obra">
+<li class="item-obra n0"><p class="nombre-paso">Prototipo</p><div class="chips"><p>En línea, solo para el equipo</p><p>Datos de prueba</p></div></li>
+<li class="item-obra n1"><p class="nombre-paso">Estructura</p><div class="chips"><p>Servidor de producción</p><p>Capacidad para todos los admitidos</p><p>Monitoreo y alertas</p></div></li>
+<li class="item-obra n2"><p class="nombre-paso">Instalaciones</p><div class="chips"><p>Base de datos de producción</p><p>Respaldos automáticos</p><p>Integración con admisiones</p></div></li>
+<li class="item-obra n3"><p class="nombre-paso">Seguridad y recepción</p><div class="chips"><p>Inicio con la cuenta de Key</p><p>Roles y permisos</p><p>Datos de menores protegidos</p><p>Aviso de privacidad</p></div></li>
+<li class="item-obra n4"><p class="nombre-paso">Acabados</p><div class="chips"><p>Banco de preguntas propio</p><p>Más simulacros y sprints</p><p>Material de estudio</p><p>Identidad Key</p></div></li>
+<li class="item-obra n5"><p class="nombre-paso">Inauguración</p><div class="chips"><p>Piloto con admitidos</p><p>Dominio de Key</p><p>Abierto a todos</p></div></li>
+</ol>
 </div>
-<div class="entra" style="--i:2; display:flex; flex-direction:column; gap:20px;">
-<img class="captura" style="width:528px; height:297px;" src="assets/inicio.png" alt="Inicio del estudiante con su nivel y los puntos que le faltan">
-<h3>Su nivel, no un porcentaje</h3>
-<p class="chico">Y cuántos puntos le faltan para el siguiente.</p>
-</div>
-<div class="entra" style="--i:3; display:flex; flex-direction:column; gap:20px;">
-<img class="captura" style="width:528px; height:297px;" src="assets/docente.png" alt="Portal del docente con la lista de estudiantes y su nivel">
-<h3>Vista del docente</h3>
-<p class="chico">El avance de cada admitido, en un lugar.</p>
-</div>
-</div>
-<div class="entra" style="--i:4; display:flex; align-items:baseline; gap:32px; margin-top:56px; border-top:1.5px solid var(--tinta); padding-top:28px;">
-<p class="num medio">257 <span style="color:var(--azul);">→</span> 142</p>
-<p class="texto">clics para el simulacro completo, tras pruebas de usuario</p>
-</div>
-<div class="pie"><p>El prototipo</p><p class="pag"></p></div>
-<aside>Todo esto ya funciona en internet, en Vercel, pero solo para el equipo. Lo que sigue es qué falta para abrirlo a todos los admitidos.</aside>
+<div class="pie"><p></p><p class="pag"></p></div>
+<aside>Lo que vieron es un prototipo: se usa, pero solo para probar. Cada clic construye el siguiente paso del edificio y dice qué hace falta. Para llegar a la inauguración hay que invertir en cada paso.</aside>
 </section>
 
-<section id="e1" data-grupo="obra" data-transition="fade">
+<section id="pedimos" class="azul">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
-<div class="etapa">
-<img class="etapa-img" src="assets/edificio-2-estructura.svg" alt="Estructura del edificio levantada en su terreno">
-<div class="etapa-info">
-<p class="etiqueta entra">Hoy</p>
-<p class="etapa-nombre entra" style="--i:1">Obra gris</p>
-<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Está en línea en Vercel, con base de datos en la nube y pruebas automáticas en cada cambio.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Abrir la puerta: hoy solo entra el equipo.</p></div>
-<div class="obra-camino">
-<div class="miniaturas">
-<img class="mini actual" src="assets/edificio-2-estructura.svg" alt="Obra gris">
-<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
-<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
-<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
-<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
+<div class="cierre-frase">
+<p class="frase-grande entra" style="--i:1">Sigamos construyendo.</p>
+<img class="entra" style="--i:3; width:760px; height:666px; object-fit:contain;" src="assets/edificio-6-inauguracion.svg" alt="Edificio terminado e inaugurado">
 </div>
-<div class="avance"><div class="avance-lleno" style="--desde:80px; --hasta:80px;"></div></div>
-</div>
-</div>
-</div>
-<div class="pie"><p>Lo que falta para lanzar · 1 de 5</p><p class="pag"></p></div>
-<aside>Ya no es una maqueta: el edificio está levantado en su terreno. K-Test ya corre en internet, pero la obra está cerrada al público.</aside>
-</section>
-
-<section id="e2" data-grupo="obra" data-transition="fade">
-<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
-<div class="etapa">
-<img class="etapa-img" src="assets/edificio-3-instalaciones.svg" alt="Estructura con tuberías azules conectadas al edificio de admisiones">
-<div class="etapa-info">
-<p class="etiqueta vacia entra">Paso 2</p>
-<p class="etapa-nombre entra" style="--i:1">Instalaciones</p>
-<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Acceso con cuentas de Google y Microsoft.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Conectarlo con el sistema de admisiones, para que cada admitido y su ciclo lleguen solos. Con TI de Key.</p></div>
-<div class="obra-camino">
-<div class="miniaturas">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
-<img class="mini actual" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
-<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
-<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
-<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
-</div>
-<div class="avance"><div class="avance-lleno" style="--desde:80px; --hasta:264px;"></div></div>
-</div>
-</div>
-</div>
-<div class="pie"><p>Lo que falta para lanzar · 2 de 5</p><p class="pag"></p></div>
-<aside>El agua y la luz: los datos. La tubería azul es la conexión con admisiones, el otro edificio.</aside>
-</section>
-
-<section id="e3" data-grupo="obra" data-transition="fade">
-<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
-<div class="etapa">
-<img class="etapa-img" src="assets/edificio-4-seguridad.svg" alt="Edificio cerrado con puerta, cerca y caseta de vigilancia">
-<div class="etapa-info">
-<p class="etiqueta vacia entra">Paso 3</p>
-<p class="etapa-nombre entra" style="--i:1">Seguridad y recepción</p>
-<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">PIN para docentes y dominios permitidos.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Login único de Key, aviso de privacidad, cuidado de datos de menores y respaldos.</p></div>
-<div class="obra-camino">
-<div class="miniaturas">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
-<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
-<img class="mini actual" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
-<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
-<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
-</div>
-<div class="avance"><div class="avance-lleno" style="--desde:264px; --hasta:448px;"></div></div>
-</div>
-</div>
-</div>
-<div class="pie"><p>Lo que falta para lanzar · 3 de 5</p><p class="pag"></p></div>
-<aside>Portones, vigilantes y recepción: quién entra, qué ve cada quien y cómo cuidamos los datos de menores.</aside>
-</section>
-
-<section id="e4" data-grupo="obra" data-transition="fade">
-<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
-<div class="etapa">
-<img class="etapa-img" src="assets/edificio-5-acabados.svg" alt="Edificio terminado con ventanas azules y franja de Key">
-<div class="etapa-info">
-<p class="etiqueta vacia entra">Paso 4</p>
-<p class="etapa-nombre entra" style="--i:1">Acabados</p>
-<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Un simulacro completo y 8 sprints.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Visto bueno de la marca, más simulacros, sprints y material de estudio.</p></div>
-<div class="obra-camino">
-<div class="miniaturas">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
-<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
-<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
-<img class="mini actual" src="assets/edificio-5-acabados.svg" alt="Acabados">
-<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
-</div>
-<div class="avance"><div class="avance-lleno" style="--desde:448px; --hasta:632px;"></div></div>
-</div>
-</div>
-</div>
-<div class="pie"><p>Lo que falta para lanzar · 4 de 5</p><p class="pag"></p></div>
-<aside>Las ventanas y el mobiliario de Key: la marca, el material, los simulacros y los sprints.</aside>
-</section>
-
-<section id="e5" data-grupo="obra" data-transition="fade">
-<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
-<div class="etapa">
-<img class="etapa-img" src="assets/edificio-6-inauguracion.svg" alt="Edificio terminado con listón azul en la entrada, bandera y personas llegando">
-<div class="etapa-info">
-<p class="etiqueta vacia entra">Paso 5</p>
-<p class="etapa-nombre entra" style="--i:1">Inauguración</p>
-<div class="dato entra" style="--i:2"><p class="chico">Antes de abrir</p><p class="texto">Piloto con un grupo de admitidos.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Para abrir</p><p class="texto">Dirección web de Key, cuentas a nombre de Key y acceso para todos los admitidos.</p></div>
-<div class="obra-camino">
-<div class="miniaturas">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
-<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
-<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
-<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
-<img class="mini actual" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
-</div>
-<div class="avance"><div class="avance-lleno" style="--desde:632px; --hasta:816px;"></div></div>
-</div>
-</div>
-</div>
-<div class="pie"><p>Lo que falta para lanzar · 5 de 5</p><p class="pag"></p></div>
-<aside>El permiso de habitabilidad y la entrega de llaves: un piloto y luego abrimos a todos los admitidos.</aside>
-</section>
-
-<section id="pedimos" class="azul" data-transition="fade">
-<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<p class="texto entra" style="color:#dfe8f7;">Lo que pedimos</p>
-<h2 class="entra" style="--i:1; font-size:200px; font-weight:700; line-height:0.95; letter-spacing:-6px; margin:40px 0 56px;">Aprobar el proyecto</h2>
-<p class="portada-sub entra" style="--i:2; width:1200px;">Para terminar la obra y abrir K-Test a todos los admitidos de Key.</p>
-<div class="pie"><p>Lo que pedimos</p><p class="pag"></p></div>
-<aside>Una sola petición: aprobar el proyecto. Con eso armamos el calendario de los pasos que faltan.</aside>
+<div class="pie"><p></p><p class="pag"></p></div>
+<aside>Aquí va la petición, de palabra: aprobar el proyecto para construir lo que falta.</aside>
 </section>
 
 <section id="cierre">
 <canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
-<img class="logo entra" src="assets/logo-key.svg" alt="Key Institute">
-<div class="portada-cuerpo">
-<div class="portada-texto">
-<p class="entra" style="--i:1; font-size:96px; font-weight:600; line-height:1.05; letter-spacing:-2px;">Para los que imaginan, y hacen.</p>
-<p class="portada-sub entra" style="--i:2; color:var(--azul);">Gracias</p>
-<p class="portada-autores entra" style="--i:3;">K-Test · Soham Villacorta e Iván Figueroa</p>
+<div class="cierre-frase" style="flex-direction:column; align-items:flex-start; justify-content:center; gap:56px;">
+<p class="frase-grande entra" style="--i:1; width:1500px;">Para los que imaginan, y hacen.</p>
+<div class="entra" style="--i:3; display:flex; align-items:center; gap:40px;">
+<img style="width:410px; height:69px;" src="assets/logo-key-blanco.svg" alt="Key Institute">
+<img style="width:72px; height:72px;" src="assets/k-test.svg" alt="K-Test">
 </div>
-<img class="portada-img entra" style="--i:2" src="assets/edificio-5-acabados.svg" alt="Ilustración isométrica del edificio terminado">
 </div>
-<aside>Gracias. Quedamos atentos a sus preguntas.</aside>
+<aside>Gracias.</aside>
 </section>
 
 </main>
@@ -705,6 +654,7 @@ body.raton #ayuda { opacity: 1; }
     if (vieja && !quieto) nueva.classList.add(mismoGrupo ? 'mismo-grupo' : direccion < 0 ? 'llega-atras' : 'llega-adelante');
     nueva.querySelectorAll('video').forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
     pasos(nueva).forEach((f) => f.classList.toggle('visible', Boolean(todosLosPasos)));
+    if (nueva.dataset.pasos) ponerPaso(nueva, todosLosPasos ? Number(nueva.dataset.pasos) : 0);
     actual = i;
     contar(nueva);
     desdeMiniatura(nueva);
@@ -713,12 +663,21 @@ body.raton #ayuda { opacity: 1; }
     history.replaceState(null, '', '#' + (i + 1));
     if (quieto) requestAnimationFrame(dibujar);
   }
+  // Diapositivas con pasos propios (la obra): cada clic suma un paso
+  function ponerPaso(d, k) {
+    d.dataset.paso = k;
+    for (let j = 1; j <= Number(d.dataset.pasos); j++) d.classList.toggle('p' + j, j <= k);
+  }
   function siguiente() {
+    const d = diapositivas[actual];
+    if (d.dataset.pasos && Number(d.dataset.paso) < Number(d.dataset.pasos)) { ponerPaso(d, Number(d.dataset.paso) + 1); return; }
     const pendiente = pasos(diapositivas[actual]).find((f) => !f.classList.contains('visible'));
     if (pendiente) pendiente.classList.add('visible');
     else if (actual < diapositivas.length - 1) mostrar(actual + 1, false, 1);
   }
   function anterior() {
+    const d = diapositivas[actual];
+    if (d.dataset.pasos && Number(d.dataset.paso) > 0) { ponerPaso(d, Number(d.dataset.paso) - 1); return; }
     const vistos = pasos(diapositivas[actual]).filter((f) => f.classList.contains('visible'));
     if (vistos.length) vistos[vistos.length - 1].classList.remove('visible');
     else if (actual > 0) mostrar(actual - 1, true, -1);
@@ -737,8 +696,8 @@ body.raton #ayuda { opacity: 1; }
     const lienzo = d && d.querySelector('.ambiente');
     if (lienzo) {
       const g = lienzo.getContext('2d');
-      const oscuro = d.classList.contains('tinta') || d.classList.contains('azul');
-      const base = oscuro ? '255,255,255' : '0,109,255';
+      const oscuro = true;
+      const base = d.classList.contains('azul') ? '255,255,255' : '106,165,255';
       g.clearRect(0, 0, 1920, 1080);
       g.lineWidth = 1;
       g.strokeStyle = `rgba(${base},${oscuro ? 0.06 : 0.055})`;
