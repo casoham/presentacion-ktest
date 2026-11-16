@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>K-Test · Presentación</title>
 <meta name="description" content="K-Test: práctica de la PAA para los admitidos de Key Institute.">
-<link rel="icon" href="assets/edificio-5-acabados.svg">
+<link rel="icon" href="assets/k-test.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 * { margin: 0; box-sizing: border-box; }
 html, body { height: 100%; background: #0c0c0c; overflow: hidden; }
-#escenario { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; }
+#escenario { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; }
 h1 { font-size: 96px; font-weight: 600; } h2 { font-size: 64px; font-weight: 600; } h3 { font-size: 44px; font-weight: 600; } p { font-size: 32px; }
 :root {
   --azul: #006dff;
@@ -152,12 +152,125 @@ section.azul .pie p, section.tinta .pie p { color: #dfe8f7; }
 .faq-item .p { font-size: 32px; font-weight: 600; line-height: 1.2; }
 .faq-item .r { font-size: 28px; line-height: 1.4; color: var(--suave); }
 
+/* ===== Capa web: movimiento que guía el foco ===== */
+section { isolation: isolate; }
+.ambiente { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; z-index: -1; pointer-events: none; }
+
+/* Entradas: siguen la lectura, de izquierda a derecha, en el mismo sentido del avance */
+.entra { animation: llegar 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 120ms + 250ms); }
+@keyframes llegar { from { opacity: 0; transform: translateX(48px); } to { opacity: 1; transform: none; } }
+.titulo { animation: llegar 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both 120ms; }
+
+/* Transición entre diapositivas: empuje lateral, el ojo sigue hacia la derecha */
+section.sale-adelante { display: block; animation: sale-izq 0.55s cubic-bezier(0.55, 0, 0.3, 1) both; }
+section.sale-atras { display: block; animation: sale-der 0.55s cubic-bezier(0.55, 0, 0.3, 1) both; }
+section.activa.llega-adelante { animation: llega-der 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+section.activa.llega-atras { animation: llega-izq 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+section.activa.mismo-grupo { animation: aparecer 0.35s ease both; }
+section.activa.mismo-grupo .titulo, section.activa.mismo-grupo .pie { animation: none; }
+@keyframes sale-izq { to { opacity: 0; transform: translateX(-180px); } }
+@keyframes sale-der { to { opacity: 0; transform: translateX(180px); } }
+@keyframes llega-der { from { opacity: 0; transform: translateX(240px); } to { opacity: 1; transform: none; } }
+@keyframes llega-izq { from { opacity: 0; transform: translateX(-240px); } to { opacity: 1; transform: none; } }
+
+/* Portada: el logo de K-Test se arma y el nombre sale de él */
+.portada-k { padding: 0; }
+.portada-centro { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: flex; align-items: center; justify-content: center; gap: 72px; }
+.marca-k .disco { transform-box: fill-box; transform-origin: center; animation: crecer-disco 0.9s cubic-bezier(0.2, 0.9, 0.2, 1.15) both 0.2s; }
+@keyframes crecer-disco { from { transform: scale(0); } to { transform: scale(1); } }
+.marca-k .anillo { transform-box: fill-box; transform-origin: center; animation: girar-anillo 40s linear infinite, aparecer 1s ease both 1s; }
+@keyframes girar-anillo { to { transform: rotate(360deg); } }
+.marca-k .trazo { animation: armar 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.marca-k .t1 { animation-delay: 0.7s; --desde: translate(0, -40px); }
+.marca-k .t2 { animation-delay: 0.85s; --desde: translate(-40px, 30px); }
+.marca-k .t3 { animation-delay: 1s; --desde: translate(40px, 20px); }
+@keyframes armar { from { opacity: 0; transform: var(--desde); } to { opacity: 1; transform: none; } }
+.marca-texto { font-size: 260px; font-weight: 700; letter-spacing: -6px; line-height: 1; color: var(--tinta); animation: salir-del-logo 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both 1.25s; }
+@keyframes salir-del-logo { from { opacity: 0; transform: translateX(-160px); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+
+/* Por qué: íconos que se dibujan y luego flotan */
+.razones { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 72px; margin-top: 24px; }
+.razon { display: flex; flex-direction: column; gap: 24px; }
+.razon .texto { color: var(--suave); }
+.icono-dibujo { animation: flotar 5s ease-in-out infinite alternate; animation-delay: calc(var(--i) * 300ms + 1.6s); }
+.icono-dibujo path, .icono-dibujo rect { stroke-dasharray: 1; stroke-dashoffset: 1; animation: trazar 1.3s ease forwards; animation-delay: calc(var(--i) * 120ms + 500ms); }
+@keyframes trazar { to { stroke-dashoffset: 0; } }
+@keyframes flotar { from { transform: translateY(0); } to { transform: translateY(-14px); } }
+
+/* Gráfica de asistencia: crece y luego sigue «viva» */
+.grafica.media, .meses.media { gap: 24px; }
+.grafica.media .col, .meses.media p { width: 120px; }
+.grafica.media .col .bar { width: 92px; }
+.col .bar { position: relative; overflow: hidden; }
+.bar.viva::after { content: ''; position: absolute; left: 0; right: 0; height: 140px; top: -140px; background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.35), rgba(255,255,255,0)); animation: barrido 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * 250ms + 1.6s); }
+@keyframes barrido { from { transform: translateY(0); } to { transform: translateY(620px); } }
+.col .valor { animation: llegar 0.5s ease both; animation-delay: calc(var(--i, 0) * 70ms + 900ms); }
+
+/* Pesas: agosto → noviembre */
+.leyenda { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.leyenda .chico { margin-right: 24px; }
+.punto-ley { width: 20px; height: 20px; border-radius: 50%; display: inline-block; }
+.punto-ley.antes { background: #b8c2d0; }
+.punto-ley.ahora { background: var(--azul); }
+.pesas { display: flex; flex-direction: column; }
+.grupo-pesas { font-size: 24px; color: var(--suave); margin: 8px 0 0 0; font-weight: 600; }
+.pesa { display: grid; grid-template-columns: 400px 1000px 220px; gap: 24px; align-items: center; height: 64px; }
+.pista { position: relative; height: 64px; background: repeating-linear-gradient(90deg, rgba(17,17,17,0.12) 0 1.5px, transparent 1.5px 250px); }
+.tramo { position: absolute; top: 29px; height: 6px; background: var(--azul); transform-origin: 0 50%; animation: crecer-h 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i) * 120ms + 600ms); }
+.tramo.baja { background: #b54708; transform-origin: 100% 50%; }
+.punto { position: absolute; top: 20px; width: 24px; height: 24px; margin-left: -12px; border-radius: 50%; }
+.punto.antes { background: #b8c2d0; }
+.punto.ahora { background: var(--azul); animation: deslizar 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i) * 120ms + 600ms); }
+.punto.ahora.baja { background: #b54708; }
+.punto.ahora::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: inherit; animation: latido 2.6s ease-out infinite; animation-delay: calc(var(--i) * 120ms + 1.6s); }
+@keyframes deslizar { from { transform: translateX(var(--d)); } to { transform: none; } }
+@keyframes latido { 0% { transform: scale(1); opacity: 0.45; } 100% { transform: scale(2.6); opacity: 0; } }
+.eje { display: flex; justify-content: space-between; margin-left: 424px; width: 1000px; margin-top: 8px; }
+.eje p { font-size: 24px; color: var(--suave); width: 0; display: flex; justify-content: center; font-family: 'JetBrains Mono', monospace; }
+
+/* Carrusel de comentarios */
+.carrusel { position: relative; margin: 56px -128px 0; width: 1920px; display: flex; flex-direction: column; gap: 20px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.cinta { display: flex; gap: 20px; width: max-content; animation: correr 90s linear infinite; }
+.cinta.reversa { animation-direction: reverse; animation-duration: 110s; }
+.cinta.lenta { animation-duration: 130s; }
+@keyframes correr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.comentario { flex: none; font-size: 28px; line-height: 1.3; padding: 18px 28px; border: 1.5px solid var(--tinta); background: var(--fondo); white-space: nowrap; }
+.comentario b { color: var(--azul); font-weight: 700; }
+
+/* El hueco: la flecha lleva el ojo del problema a la respuesta */
+.fila-hueco { display: grid; grid-template-columns: 700px 200px 1fr; align-items: center; padding: 28px 0; border-top: 1.5px solid #5a6170; }
+.fila-hueco.cabeza { border-top: none; padding: 0 0 16px; }
+.fila-hueco.cabeza .chico { color: #b9c2d0; }
+.fila-hueco.ultima { border-bottom: 1.5px solid #5a6170; }
+.fila-hueco .destino { color: #8fbcff; }
+.guia { height: 3px; background: #8fbcff; margin: 0 32px; position: relative; transform-origin: 0 50%; transform: scaleX(0); }
+.guia::after { content: ''; position: absolute; right: -2px; top: -7px; border-left: 14px solid #8fbcff; border-top: 8.5px solid transparent; border-bottom: 8.5px solid transparent; }
+.fila-hueco.fragment { opacity: 1; }
+.fila-hueco.fragment > * { opacity: 0.14; transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.fila-hueco.fragment .guia { opacity: 0; }
+.fila-hueco.fragment.visible > p:first-child { opacity: 1; }
+.fila-hueco.fragment.visible .guia { opacity: 1; transform: scaleX(1); transition-delay: 0.25s; }
+.fila-hueco.fragment.visible .destino { opacity: 1; transform: none; transition-delay: 0.7s; }
+.fila-hueco.fragment .destino { transform: translateX(-24px); }
+
+/* Obra: la etapa sale de su miniatura (JS) y el avance corre hasta ella */
+.etapa-img { animation: none; }
+.obra-camino { margin-top: 8px; }
+.avance { height: 4px; width: 896px; background: rgba(17,17,17,0.1); margin-top: 6px; }
+.avance-lleno { height: 4px; background: var(--azul); width: var(--hasta); animation: avanzar 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.3s; }
+@keyframes avanzar { from { width: var(--desde); } to { width: var(--hasta); } }
+.mini { border-bottom: none; transition: opacity 0.4s; }
+.mini.actual { border-bottom: none; }
+
+/* Cifras que cuentan */
+[data-contar] { font-variant-numeric: tabular-nums; }
+
 section { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: none; }
-section.activa { display: block; animation: aparecer 0.5s ease both; }
+section.activa { display: block; }
 @keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
 section aside { display: none; }
 .pie .pag::after { content: none; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition: none !important; } }
 #notas { position: fixed; left: 0; right: 0; bottom: 0; max-height: 40vh; overflow: auto; padding: 16px 24px; background: rgba(17,17,17,.94); color: #f3f5f8; font: 18px/1.5 'Albert Sans', Arial, sans-serif; display: none; z-index: 10; }
 #notas.abierta { display: block; }
 #ayuda { position: fixed; right: 16px; bottom: 12px; color: #8a93a3; font: 13px 'Albert Sans', Arial, sans-serif; opacity: 0; transition: opacity .3s; pointer-events: none; }
@@ -166,20 +279,17 @@ body.raton #ayuda { opacity: 1; }
 </head>
 <body>
 <main id="escenario" aria-live="polite">
-<section id="portada" data-transition="fade">
-<img class="logo entra" src="assets/logo-key.svg" alt="Key Institute">
-<div class="portada-cuerpo">
-<div class="portada-texto">
-<h1 class="marca entra" style="--i:1">K-Test</h1>
-<p class="portada-sub entra" style="--i:2">Práctica de la PAA para los admitidos de Key, desde cualquier lugar.</p>
-<p class="portada-autores entra" style="--i:3">Soham Villacorta e Iván Figueroa<br>Curso de Preparación para la PAA, noviembre de 2026</p>
+<section id="portada" class="portada-k" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<div class="portada-centro">
+<svg class="marca-k" aria-label="Logo de K-Test" viewBox="-8 -8 80 80" width="420" height="420" xmlns="http://www.w3.org/2000/svg"><circle class="anillo" cx="32" cy="32" r="38" fill="none" stroke="#006dff" stroke-width="0.6" stroke-dasharray="2 3"/><circle class="disco" cx="32" cy="32" r="32" fill="#006DFF"/><g transform="translate(14.4 14) scale(0.4286)" fill="#FCFCFB"><path class="trazo t1" d="M37.3872 31.1118L31.219 34.669L14.6444 25.1148L6.16826 29.999L31.219 44.4421L45.8633 36.0007V0L37.3872 4.88886V31.1118Z"/><path class="trazo t2" d="M31.219 46.6677L0 64.668L8.47612 69.5569L31.219 56.4408L37.3872 59.998V84L45.8633 79.1111V55.1138L31.219 46.6677Z"/><path class="trazo t3" d="M83.2459 64.668L56.265 49.1121V41.9977L72.8396 32.4434V22.6704L47.7935 37.1135V54.001L74.7698 69.5569L83.2459 64.668Z"/></g></svg>
+<p class="marca-texto">K-TEST</p>
 </div>
-<img class="portada-img entra" style="--i:2" src="assets/edificio-5-acabados.svg" alt="Ilustración isométrica de un edificio de Key terminado">
-</div>
-<aside>Buenas. Venimos a presentar K-Test: la plataforma donde los admitidos de Key practican la PAA desde su casa. En 15 minutos: qué es, por qué, lo que aprendimos del curso, una demo y lo que falta para lanzarlo.</aside>
+<aside>Buenas. Venimos a presentar K-Test: la plataforma donde los admitidos de Key practican la PAA desde donde estén.</aside>
 </section>
 
 <section id="que-es" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <h2 class="titulo">Qué es K-Test</h2>
 <div class="dos">
 <div style="display:flex; flex-direction:column; gap:48px; width:700px;">
@@ -198,24 +308,37 @@ body.raton #ayuda { opacity: 1; }
 </section>
 
 <section id="por-que" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <h2 class="titulo">Por qué lo hacemos</h2>
-<div class="celdas">
-<div class="celda primera entra" style="--i:1"><h3>Conoce la prueba</h3><p class="texto">El formato y los ejercicios de Lectura, Redacción y Matemáticas.</p></div>
-<div class="celda entra" style="--i:2"><h3>A tu ritmo</h3><p class="texto">Cuando quieras y desde donde estés.</p></div>
-<div class="celda entra" style="--i:3"><h3>Sin costo</h3><p class="texto">Simulacros, sprints y material, sin pagar nada.</p></div>
+<div class="razones">
+<div class="razon entra" style="--i:1">
+<svg class="icono-dibujo" style="--i:1" aria-hidden="true" viewBox="0 0 24 24" width="200" height="200" fill="none" stroke="#006dff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path pathLength="1" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/><path pathLength="1" d="m15 10 2 2 3.5-3.5"/></svg>
+<h3>Conoce la prueba</h3>
+<p class="texto">El formato y los ejercicios de Lectura, Redacción y Matemáticas.</p>
 </div>
-<img class="entra" style="--i:4; width:1664px; height:300px; object-fit:cover; margin-top:48px;" src="assets/cohorte-campus.webp" alt="Generación de estudiantes de Key en el campus">
+<div class="razon entra" style="--i:3">
+<svg class="icono-dibujo" style="--i:3" aria-hidden="true" viewBox="0 0 24 24" width="200" height="200" fill="none" stroke="#006dff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><path pathLength="1" d="M12 6.5v3.5l2.2 1.4"/></svg>
+<h3>A tu ritmo</h3>
+<p class="texto">Cuando quieras y desde donde estés.</p>
+</div>
+<div class="razon entra" style="--i:5">
+<svg class="icono-dibujo" style="--i:5" aria-hidden="true" viewBox="0 0 24 24" width="200" height="200" fill="none" stroke="#006dff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><rect pathLength="1" x="3" y="8" width="18" height="4" rx="1"/><path pathLength="1" d="M12 8v13"/><path pathLength="1" d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path pathLength="1" d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
+<h3>Sin costo</h3>
+<p class="texto">Simulacros, sprints y material, sin pagar nada.</p>
+</div>
+</div>
 <div class="pie"><p>Qué es K-Test</p><p class="pag"></p></div>
-<aside>Son las tres razones que ya dice la página de K-Test. La idea de fondo: que ningún admitido llegue a la PAA sin haber visto la prueba.</aside>
+<aside>Las tres razones de la página de K-Test. Que ningún admitido llegue a la PAA sin haber visto la prueba.</aside>
 </section>
 
 <section id="quienes" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <h2 class="titulo">Quiénes lo hacemos</h2>
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:72px;">
 <div class="entra" style="--i:1; display:flex; flex-direction:column; gap:12px;"><h3>Soham Villacorta</h3><p class="bajada">Experiencia y diseño de la plataforma</p></div>
 <div class="entra" style="--i:2; display:flex; flex-direction:column; gap:12px;"><h3>Iván Figueroa</h3><p class="bajada">Datos y servidor de la plataforma</p></div>
 </div>
-<p class="texto entra" style="--i:3; margin:56px 0 32px;">Desde abril damos juntos el Curso de Preparación para la PAA. Así trabajamos hoy:</p>
+<p class="texto entra" style="--i:3; margin:56px 0 32px;">Desde abril cambiamos el rumbo del curso:</p>
 <div class="celdas" style="grid-template-columns:1fr 1fr;">
 <div class="celda primera entra" style="--i:4"><h3 style="color:var(--azul);">Metodología enfocada en el examen</h3><p class="texto">Cada jornada practica el formato, los tiempos y las estrategias de la PAA.</p></div>
 <div class="celda entra" style="--i:5"><h3 style="color:var(--azul);">Técnicas para manejar la ansiedad</h3><p class="texto">Para llegar con calma al día de la prueba.</p></div>
@@ -224,37 +347,35 @@ body.raton #ayuda { opacity: 1; }
 <aside>Lo que sigue viene de lo que aprendimos dando el curso desde abril.</aside>
 </section>
 
-<section id="asistencia" class="gris" data-transition="fade">
-<h2 class="titulo">Asistencia desde abril</h2>
-<div class="entra" style="--i:1; display:flex; align-items:baseline; gap:48px; margin-top:120px;">
-<p class="num" style="font-size:320px; line-height:1; color:var(--azul);">184</p>
-<p class="portada-sub" style="width:640px;">jóvenes vinieron al curso al menos un sábado</p>
+<section id="asistencia" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:48px;">Temporada alta: mayo a julio</h2>
+<div style="display:flex; gap:64px; align-items:flex-end;">
+<div style="width:440px; display:flex; flex-direction:column; gap:40px; flex:none;">
+<div class="entra" style="--i:1;"><p class="num" style="font-size:150px; line-height:1; color:var(--azul);" data-contar="184">184</p><p class="texto">jóvenes vinieron desde abril</p></div>
+<div class="entra" style="--i:2;"><p class="num medio" data-contar="409">409</p><p class="texto">asistencias en total</p></div>
+<div class="entra" style="--i:3;"><p class="num medio" style="color:var(--azul);">58 %</p><p class="texto">en mayo, junio y julio</p></div>
 </div>
-<div class="pie"><p>El curso en números</p><p class="pag"></p></div>
-<aside>Cada joven cuenta una vez, aunque se haya inscrito en varios meses.</aside>
-</section>
-
-<section id="temporada" data-transition="fade">
-<h2 class="titulo" style="margin-bottom:24px;">Temporada alta: mayo a julio</h2>
-<p class="bajada entra" style="margin-bottom:40px;"><span class="num" style="color:var(--tinta); letter-spacing:0;">409</span> asistencias desde abril; 237 en mayo, junio y julio (58 %).</p>
-<div class="grafica ancha" style="height:460px;" role="img" aria-label="Asistencias por mes, de abril a noviembre de 2026">
-<div class="col"><p class="num valor">32</p><div class="bar barra" style="--i:0; height:138px;"></div></div>
-<div class="col"><p class="num valor">93</p><div class="bar alta barra" style="--i:1; height:400px;"></div></div>
-<div class="col"><p class="num valor">78</p><div class="bar alta barra" style="--i:2; height:335px;"></div></div>
-<div class="col"><p class="num valor">66</p><div class="bar alta barra" style="--i:3; height:284px;"></div></div>
-<div class="col"><p class="num valor">50</p><div class="bar barra" style="--i:4; height:215px;"></div></div>
-<div class="col"><p class="num valor">25</p><div class="bar barra" style="--i:5; height:108px;"></div></div>
-<div class="col"><p class="num valor">38</p><div class="bar barra" style="--i:6; height:163px;"></div></div>
-<div class="col"><p class="num valor">27</p><div class="bar barra" style="--i:7; height:116px;"></div></div>
+<div style="flex:1;">
+<div class="grafica media" style="height:540px;" role="img" aria-label="Asistencias por mes, de abril a noviembre de 2026">
+<div class="col"><p class="num valor">32</p><div class="bar barra" style="--i:0; height:151px;"></div></div>
+<div class="col"><p class="num valor">93</p><div class="bar alta barra viva" style="--i:1; height:440px;"></div></div>
+<div class="col"><p class="num valor">78</p><div class="bar alta barra viva" style="--i:2; height:369px;"></div></div>
+<div class="col"><p class="num valor">66</p><div class="bar alta barra viva" style="--i:3; height:312px;"></div></div>
+<div class="col"><p class="num valor">50</p><div class="bar barra" style="--i:4; height:237px;"></div></div>
+<div class="col"><p class="num valor">25</p><div class="bar barra" style="--i:5; height:118px;"></div></div>
+<div class="col"><p class="num valor">38</p><div class="bar barra" style="--i:6; height:180px;"></div></div>
+<div class="col"><p class="num valor">27</p><div class="bar barra" style="--i:7; height:128px;"></div></div>
 </div>
-<div class="meses ancha">
-<p>Abr</p><p class="alta">May</p><p class="alta">Jun</p><p class="alta">Jul</p><p>Ago</p><p>Sep</p><p>Oct</p><p>Nov</p>
+<div class="meses media"><p>Abr</p><p class="alta">May</p><p class="alta">Jun</p><p class="alta">Jul</p><p>Ago</p><p>Sep</p><p>Oct</p><p>Nov</p></div>
 </div>
-<div class="pie"><p>El curso en números · asistencias por mes</p><p class="pag"></p></div>
-<aside>Una asistencia es una persona en un sábado. Los sábados más llenos: 16 y 30 de mayo, 27 de junio y 25 de julio, con 24 o 25 jóvenes cada uno.</aside>
+</div>
+<div class="pie"><p>El curso en números · listas de asistencia, abril a noviembre</p><p class="pag"></p></div>
+<aside>184 jóvenes distintos desde abril; una asistencia es una persona en un sábado. Los sábados más llenos: 16 y 30 de mayo, 27 de junio y 25 de julio.</aside>
 </section>
 
 <section id="constancia" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <h2 class="titulo">Más de un tercio vino un solo sábado</h2>
 <div class="dos" style="align-items:center; margin-top:24px;">
 <div class="entra" style="--i:1; width:500px; display:flex; flex-direction:column; gap:16px;">
@@ -273,50 +394,50 @@ body.raton #ayuda { opacity: 1; }
 </section>
 
 <section id="encuestas" class="gris" data-transition="fade">
-<h2 class="titulo" style="margin-bottom:48px;">Impacto desde agosto</h2>
-<div class="impacto">
-<div class="tarjeta primera entra" style="--i:1"><h3 style="font-size:32px;">Cumplió expectativas</h3><p class="num sube">+0.75</p><p class="num chico">3.87 → 4.62</p></div>
-<div class="tarjeta entra" style="--i:2"><h3 style="font-size:32px;">Motivación</h3><p class="num sube">+0.60</p><p class="num chico">3.83 → 4.43</p></div>
-<div class="tarjeta entra" style="--i:3"><h3 style="font-size:32px;">Me preparó para la PAA</h3><p class="num sube">+0.48</p><p class="num chico">4.04 → 4.52</p></div>
-<div class="tarjeta entra" style="--i:4"><h3 style="font-size:32px;">Retroalimentación</h3><p class="num sube">+0.44</p><p class="num chico">4.13 → 4.57</p></div>
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:32px;">Impacto desde agosto</h2>
+<div class="leyenda entra"><span class="punto-ley antes"></span><p class="chico">Agosto</p><span class="punto-ley ahora"></span><p class="chico">Noviembre</p></div>
+<div class="pesas" role="img" aria-label="Encuesta de cada jornada, agosto contra noviembre, en escala de 1 a 5">
+<p class="grupo-pesas entra" style="--i:1">Subió</p>
+<div class="pesa entra" style="--i:1"><p class="texto">Cumplió expectativas</p><div class="pista"><div class="tramo" style="left:435px; width:375px; --i:1"></div><span class="punto antes" style="left:435px"></span><span class="punto ahora" style="left:810px; --d:-375px; --i:1"></span></div><p class="num chico">3.87 → 4.62</p></div>
+<div class="pesa entra" style="--i:2"><p class="texto">Motivación</p><div class="pista"><div class="tramo" style="left:415px; width:300px; --i:2"></div><span class="punto antes" style="left:415px"></span><span class="punto ahora" style="left:715px; --d:-300px; --i:2"></span></div><p class="num chico">3.83 → 4.43</p></div>
+<div class="pesa entra" style="--i:3"><p class="texto">Me preparó para la PAA</p><div class="pista"><div class="tramo" style="left:520px; width:240px; --i:3"></div><span class="punto antes" style="left:520px"></span><span class="punto ahora" style="left:760px; --d:-240px; --i:3"></span></div><p class="num chico">4.04 → 4.52</p></div>
+<div class="pesa entra" style="--i:4"><p class="texto">Retroalimentación</p><div class="pista"><div class="tramo" style="left:565px; width:220px; --i:4"></div><span class="punto antes" style="left:565px"></span><span class="punto ahora" style="left:785px; --d:-220px; --i:4"></span></div><p class="num chico">4.13 → 4.57</p></div>
+<p class="grupo-pesas entra" style="--i:6">Por mejorar</p>
+<div class="pesa entra" style="--i:6"><p class="texto">Manejo de la ansiedad</p><div class="pista"><div class="tramo" style="left:55px; width:230px; --i:6"></div><span class="punto antes" style="left:55px"></span><span class="punto ahora" style="left:285px; --d:-230px; --i:6"></span></div><p class="num chico">3.11 → 3.57</p></div>
+<div class="pesa entra" style="--i:7"><p class="texto">Capaz de aplicarlo</p><div class="pista"><div class="tramo" style="left:215px; width:260px; --i:7"></div><span class="punto antes" style="left:215px"></span><span class="punto ahora" style="left:475px; --d:-260px; --i:7"></span></div><p class="num chico">3.43 → 3.95</p></div>
+<div class="pesa entra" style="--i:8"><p class="texto">Claridad para resolver</p><div class="pista"><div class="tramo baja" style="left:645px; width:270px; --i:8"></div><span class="punto antes" style="left:915px"></span><span class="punto ahora baja" style="left:645px; --d:270px; --i:8"></span></div><p class="num chico" style="color:#b54708;">4.83 → 4.29, bajó</p></div>
+<div class="eje"><p>3.0</p><p>3.5</p><p>4.0</p><p>4.5</p><p>5.0</p></div>
 </div>
-<p class="chico entra" style="--i:5; margin:48px 0 12px;">Por mejorar</p>
-<div class="entra" style="--i:6; display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px;">
-<div class="dato"><p class="texto">Manejo de la ansiedad</p><p class="num medio">3.57</p></div>
-<div class="dato"><p class="texto">Capaz de aplicarlo</p><p class="num medio">3.95</p></div>
-<div class="dato"><p class="texto">Claridad para resolver</p><p class="num medio">4.83 → 4.29</p></div>
-</div>
-<div class="pie"><p>El curso en números · encuesta de cada jornada, agosto contra noviembre, escala de 1 a 5</p><p class="pag"></p></div>
-<aside>Agosto, con el formulario nuevo, contra noviembre. La ansiedad subió de 3.11 a 3.57 desde que trabajamos técnicas para manejarla, pero sigue siendo lo más bajo. La claridad para resolver bajó: es lo que más hay que cuidar.</aside>
+<div class="pie"><p>El curso en números · encuesta de cada jornada, escala de 1 a 5</p><p class="pag"></p></div>
+<aside>Agosto, con el formulario nuevo, contra noviembre. Todo subió menos la claridad para resolver. La ansiedad subió desde que trabajamos técnicas para manejarla, pero sigue siendo lo más bajo.</aside>
 </section>
 
 <section id="valoracion" data-transition="fade">
-<h2 class="titulo">Lo que más piden</h2>
-<div class="entra" style="--i:1; display:flex; align-items:baseline; gap:56px; margin-top:96px;">
-<p class="num" style="font-size:320px; line-height:1; color:var(--azul);">41</p>
-<p class="portada-sub" style="width:760px;">veces piden «más ejercicios» en sus comentarios</p>
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:40px;">Lo que más piden</h2>
+<div class="entra" style="--i:1; display:flex; align-items:baseline; gap:40px;">
+<p class="num" style="font-size:180px; line-height:1; color:var(--azul);" data-contar="62">62</p>
+<p class="portada-sub" style="width:900px;">comentarios piden trabajar <b style="color:var(--azul);">más ejercicios</b></p>
 </div>
-<div class="pie"><p>El curso en números · comentarios de agosto a noviembre</p><p class="pag"></p></div>
-<aside>Lo que más piden es practicar más. Eso es justamente K-Test.</aside>
+<div class="carrusel entra" style="--i:2">
+<div class="cinta" aria-hidden="false"><p class="comentario">Tomar más en cuenta explicar los temas complicados y darle énfasis a los <b>ejercicios</b> de…</p><p class="comentario">Intentar enseñar los <b>ejercicios</b> en una manera de resolver más sencilla y no tan compleja</p><p class="comentario">Aplicaciones de <b>ejercicios</b> y como tener razonamiento matemático</p><p class="comentario"><b>Más ejercicios</b> de otros temas que pueden salir.</p><p class="comentario"><b>Más ejercicios</b> de práctica con los asesores, que ellos nos acompañen en algunos <b>ejercicios</b></p><p class="comentario">Hacer <b>más ejercicios</b> luego de las explicaciones.</p><p class="comentario">Apoyo en mejor explicacion de los <b>ejercicios</b>, temas y lectura matemática para entender…</p><p class="comentario">Hacer <b>más ejercicios</b></p><p class="comentario">Más resolución de <b>ejercicios</b></p><p class="comentario"><b>Ejercicios</b> de lógica y gráficas y líneas</p><p class="comentario">Seguir con los temas y darnos a comprender los <b>ejercicios</b> de la PAA como lo han hecho…</p><p class="comentario">Resolver <b>mas ejercicio</b></p><p class="comentario">La explicacion rapida y solo hacer un <b>ejercicio</b></p><p class="comentario"><b>Más ejercicios</b>.</p><p class="comentario">Teniendo <b>mas ejercicios</b> de práctica que hagamos todos o en grupos</p><p class="comentario">Designando <b>ejercicios</b> a resolver</p><p class="comentario">Más resolución de <b>ejercicios</b>.</p><p class="comentario">Poniendo <b>más ejercicios</b> de práctica</p><p class="comentario">Que no se profundizase tanto en cada <b>ejercicio</b></p><p class="comentario">Que no había muchos <b>ejercicios</b> de practica</p><p class="comentario">Mas teoria o aplicar <b>mas ejercicios</b> faciles y después hacer los examenes</p><p class="comentario">Tomar más en cuenta explicar los temas complicados y darle énfasis a los <b>ejercicios</b> de…</p><p class="comentario">Intentar enseñar los <b>ejercicios</b> en una manera de resolver más sencilla y no tan compleja</p><p class="comentario">Aplicaciones de <b>ejercicios</b> y como tener razonamiento matemático</p><p class="comentario"><b>Más ejercicios</b> de otros temas que pueden salir.</p><p class="comentario"><b>Más ejercicios</b> de práctica con los asesores, que ellos nos acompañen en algunos <b>ejercicios</b></p><p class="comentario">Hacer <b>más ejercicios</b> luego de las explicaciones.</p><p class="comentario">Apoyo en mejor explicacion de los <b>ejercicios</b>, temas y lectura matemática para entender…</p><p class="comentario">Hacer <b>más ejercicios</b></p><p class="comentario">Más resolución de <b>ejercicios</b></p><p class="comentario"><b>Ejercicios</b> de lógica y gráficas y líneas</p><p class="comentario">Seguir con los temas y darnos a comprender los <b>ejercicios</b> de la PAA como lo han hecho…</p><p class="comentario">Resolver <b>mas ejercicio</b></p><p class="comentario">La explicacion rapida y solo hacer un <b>ejercicio</b></p><p class="comentario"><b>Más ejercicios</b>.</p><p class="comentario">Teniendo <b>mas ejercicios</b> de práctica que hagamos todos o en grupos</p><p class="comentario">Designando <b>ejercicios</b> a resolver</p><p class="comentario">Más resolución de <b>ejercicios</b>.</p><p class="comentario">Poniendo <b>más ejercicios</b> de práctica</p><p class="comentario">Que no se profundizase tanto en cada <b>ejercicio</b></p><p class="comentario">Que no había muchos <b>ejercicios</b> de practica</p><p class="comentario">Mas teoria o aplicar <b>mas ejercicios</b> faciles y después hacer los examenes</p></div>
+<div class="cinta reversa" aria-hidden="true"><p class="comentario">Con mas ejemplos de <b>ejercicios</b></p><p class="comentario"><b>Más ejercicios</b> sobre funciones</p><p class="comentario">Incorporando <b>ejercicios</b> más difíciles</p><p class="comentario">Mas participación y <b>mas ejercicios</b></p><p class="comentario">Las diferentes maneras de resolver un <b>ejercicio</b> muy complicado de resolver</p><p class="comentario">Un poco de como realizar <b>más fácilmente ejercicios</b> sin la calculadora</p><p class="comentario">Un poco de inconsistencia en como se llevo la explicacion de temas, <b>ejercicios</b> de…</p><p class="comentario">Resolver <b>mas ejercicios</b> de temas más complejos</p><p class="comentario"><b>Ejercicios</b> de practica para terminar de entender la teoria</p><p class="comentario">Que dure más y explicar <b>más ejercicios</b></p><p class="comentario">Aritmetica y <b>ejercicios</b> aplicativos de razones, etc.</p><p class="comentario"><b>Ejercicios</b> con áreas sombreados y métodos o ideas de resolución rápida o por simple…</p><p class="comentario">En <b>más ejercicios</b> prácticos</p><p class="comentario"><b>Ejercicios</b> más didácticos</p><p class="comentario">Dejar una lista de <b>ejercicios</b> o exámenes para seguir practicando</p><p class="comentario"><b>Ejercicios</b> de probabilidades</p><p class="comentario">Dividir mejor los tiempos y explicar un poco más cada tema y un <b>ejercicio</b> un poco…</p><p class="comentario">Que sea más tipo clase donde aprendamos información relevante necesaria para resolver…</p><p class="comentario">Siendo un poco más detallados y no solo explicar un <b>ejercicio</b> por encima</p><p class="comentario">Dividir <b>ejercicios</b> por tipo</p><p class="comentario">Dar más profundidad a los <b>ejercicios</b>.</p><p class="comentario">Con mas ejemplos de <b>ejercicios</b></p><p class="comentario"><b>Más ejercicios</b> sobre funciones</p><p class="comentario">Incorporando <b>ejercicios</b> más difíciles</p><p class="comentario">Mas participación y <b>mas ejercicios</b></p><p class="comentario">Las diferentes maneras de resolver un <b>ejercicio</b> muy complicado de resolver</p><p class="comentario">Un poco de como realizar <b>más fácilmente ejercicios</b> sin la calculadora</p><p class="comentario">Un poco de inconsistencia en como se llevo la explicacion de temas, <b>ejercicios</b> de…</p><p class="comentario">Resolver <b>mas ejercicios</b> de temas más complejos</p><p class="comentario"><b>Ejercicios</b> de practica para terminar de entender la teoria</p><p class="comentario">Que dure más y explicar <b>más ejercicios</b></p><p class="comentario">Aritmetica y <b>ejercicios</b> aplicativos de razones, etc.</p><p class="comentario"><b>Ejercicios</b> con áreas sombreados y métodos o ideas de resolución rápida o por simple…</p><p class="comentario">En <b>más ejercicios</b> prácticos</p><p class="comentario"><b>Ejercicios</b> más didácticos</p><p class="comentario">Dejar una lista de <b>ejercicios</b> o exámenes para seguir practicando</p><p class="comentario"><b>Ejercicios</b> de probabilidades</p><p class="comentario">Dividir mejor los tiempos y explicar un poco más cada tema y un <b>ejercicio</b> un poco…</p><p class="comentario">Que sea más tipo clase donde aprendamos información relevante necesaria para resolver…</p><p class="comentario">Siendo un poco más detallados y no solo explicar un <b>ejercicio</b> por encima</p><p class="comentario">Dividir <b>ejercicios</b> por tipo</p><p class="comentario">Dar más profundidad a los <b>ejercicios</b>.</p></div>
+<div class="cinta lenta" aria-hidden="true"><p class="comentario"><b>Más ejercicios</b></p><p class="comentario"><b>Ejercicio</b> de funciones</p><p class="comentario">Las explicaciones estaban un poco desordenadas y parecian <b>ejercicios</b> escogidos al…</p><p class="comentario">Tal vez hacer <b>ejercicios</b> un poco más lentos y explicar de donde sale cada cosa</p><p class="comentario">Más resoluciones de <b>ejercicios</b>.</p><p class="comentario">Un poco <b>más de ejercicios</b> pero estuvo bastante bien la sesión de hoy</p><p class="comentario">Resolver <b>ejercicios</b> mas difíciles que los de la PAA</p><p class="comentario">Que no hubo mucha interracion al explicar los <b>ejercicios</b></p><p class="comentario">Resolver <b>ejercicios</b> de manera conjunta</p><p class="comentario">Aun más profundidad en los <b>ejercicios</b></p><p class="comentario">Explicar <b>mas los ejercicio</b></p><p class="comentario"><b>Más ejercicios</b> de aprendo libre</p><p class="comentario">La resolución de los <b>ejercicios</b> de la prueba simulacro</p><p class="comentario">Quizá explicar <b>más ejercicios</b></p><p class="comentario">Una explicación con más ejemplos de diferentes variantes de <b>ejercicios</b></p><p class="comentario">No me gustó algunos <b>ejercicios</b> algo complicados de la prueba que no estuvieron en la clase</p><p class="comentario">Con un poco de explicación mas clara y <b>más ejercicios</b></p><p class="comentario">Deteniéndose a explicar más a detalle cada <b>ejercicio</b> y el porqué de su respuesta</p><p class="comentario">Con <b>más ejercicios</b> de práctica</p><p class="comentario">Solo haciendo <b>mas ejercicios</b> juntos de problemas que sean difícil de los examenes</p><p class="comentario"><b>Más ejercicios</b></p><p class="comentario"><b>Ejercicio</b> de funciones</p><p class="comentario">Las explicaciones estaban un poco desordenadas y parecian <b>ejercicios</b> escogidos al…</p><p class="comentario">Tal vez hacer <b>ejercicios</b> un poco más lentos y explicar de donde sale cada cosa</p><p class="comentario">Más resoluciones de <b>ejercicios</b>.</p><p class="comentario">Un poco <b>más de ejercicios</b> pero estuvo bastante bien la sesión de hoy</p><p class="comentario">Resolver <b>ejercicios</b> mas difíciles que los de la PAA</p><p class="comentario">Que no hubo mucha interracion al explicar los <b>ejercicios</b></p><p class="comentario">Resolver <b>ejercicios</b> de manera conjunta</p><p class="comentario">Aun más profundidad en los <b>ejercicios</b></p><p class="comentario">Explicar <b>mas los ejercicio</b></p><p class="comentario"><b>Más ejercicios</b> de aprendo libre</p><p class="comentario">La resolución de los <b>ejercicios</b> de la prueba simulacro</p><p class="comentario">Quizá explicar <b>más ejercicios</b></p><p class="comentario">Una explicación con más ejemplos de diferentes variantes de <b>ejercicios</b></p><p class="comentario">No me gustó algunos <b>ejercicios</b> algo complicados de la prueba que no estuvieron en la clase</p><p class="comentario">Con un poco de explicación mas clara y <b>más ejercicios</b></p><p class="comentario">Deteniéndose a explicar más a detalle cada <b>ejercicio</b> y el porqué de su respuesta</p><p class="comentario">Con <b>más ejercicios</b> de práctica</p><p class="comentario">Solo haciendo <b>mas ejercicios</b> juntos de problemas que sean difícil de los examenes</p></div>
+</div>
+<div class="pie"><p>El curso en números · comentarios de las encuestas, abril a noviembre</p><p class="pag"></p></div>
+<aside>Son sus propias palabras: más ejercicios, más difíciles, mejor explicados, para seguir practicando. Eso es K-Test.</aside>
 </section>
 
 <section id="hueco" class="tinta" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <h2 class="titulo">Lo que el sábado no alcanza</h2>
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px;">
-<p class="chico" style="color:#b9c2d0; padding-bottom:16px;">Hoy</p>
-<p class="chico" style="color:#b9c2d0; padding-bottom:16px;">Con K-Test</p>
-</div>
-<div class="fragment" style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px; border-top:1.5px solid #5a6170; padding:28px 0;">
-<p class="texto">Viven lejos del campus</p><p class="texto" style="color:#8fbcff;">Practican desde su casa</p>
-</div>
-<div class="fragment" style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px; border-top:1.5px solid #5a6170; padding:28px 0;">
-<p class="texto">No pueden venir los 4 sábados</p><p class="texto" style="color:#8fbcff;">Siguen practicando entre sábados</p>
-</div>
-<div class="fragment" style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px; border-top:1.5px solid #5a6170; border-bottom:1.5px solid #5a6170; padding:28px 0;">
-<p class="texto">Llegan a la PAA sin conocer la prueba</p><p class="texto" style="color:#8fbcff;">Hacen el simulacro con preguntas reales</p>
-</div>
+<div class="fila-hueco cabeza"><p class="chico">Hoy</p><span></span><p class="chico">Con K-Test</p></div>
+<div class="fragment fila-hueco"><p class="texto">Viven lejos del campus</p><span class="guia"></span><p class="texto destino">Practican desde su casa</p></div>
+<div class="fragment fila-hueco"><p class="texto">No pueden venir los 4 sábados</p><span class="guia"></span><p class="texto destino">Siguen practicando entre sábados</p></div>
+<div class="fragment fila-hueco ultima"><p class="texto">Llegan a la PAA sin conocer la prueba</p><span class="guia"></span><p class="texto destino">Hacen el simulacro con preguntas reales</p></div>
 <div class="pie"><p>El hueco que llena K-Test</p><p class="pag"></p></div>
-<aside>Cada clic muestra una fila.</aside>
+<aside>Cada clic muestra una fila: el problema y, siguiendo la flecha, lo que hace K-Test.</aside>
 </section>
 
 <section id="demo" class="tinta" style="padding:0;" data-transition="fade">
@@ -325,6 +446,7 @@ body.raton #ayuda { opacity: 1; }
 </section>
 
 <section id="prototipo" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <h2 class="titulo">Lo que ya hace el prototipo</h2>
 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px;">
 <div class="entra" style="--i:1; display:flex; flex-direction:column; gap:20px;">
@@ -348,128 +470,150 @@ body.raton #ayuda { opacity: 1; }
 <p class="texto">clics para el simulacro completo, tras pruebas de usuario</p>
 </div>
 <div class="pie"><p>El prototipo</p><p class="pag"></p></div>
-<aside>Todo esto ya funciona, pero en una computadora: es una maqueta. La siguiente parte es qué falta para abrirlo a todos los admitidos.</aside>
+<aside>Todo esto ya funciona en internet, en Vercel, pero solo para el equipo. Lo que sigue es qué falta para abrirlo a todos los admitidos.</aside>
 </section>
 
-<section id="m1" data-transition="fade">
-<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<section id="e1" data-grupo="obra" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
 <div class="etapa">
-<img class="etapa-img" src="assets/edificio-1-maqueta.svg" alt="Maqueta blanca del edificio">
+<img class="etapa-img" src="assets/edificio-2-estructura.svg" alt="Estructura del edificio levantada en su terreno">
 <div class="etapa-info">
 <p class="etiqueta entra">Hoy</p>
-<p class="etapa-nombre entra" style="--i:1">Maqueta</p>
-<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Simulacro, sprints, niveles y vista del docente. Se ve y se usa.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Le falta</p><p class="texto">Que funcione fuera de una sola computadora.</p></div>
-<div class="miniaturas entra" style="--i:4">
-<img class="mini actual" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<p class="etapa-nombre entra" style="--i:1">Obra gris</p>
+<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Está en línea en Vercel, con base de datos en la nube y pruebas automáticas en cada cambio.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Abrir la puerta: hoy solo entra el equipo.</p></div>
+<div class="obra-camino">
+<div class="miniaturas">
+<img class="mini actual" src="assets/edificio-2-estructura.svg" alt="Obra gris">
 <img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
 <img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
 <img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
+</div>
+<div class="avance"><div class="avance-lleno" style="--desde:80px; --hasta:80px;"></div></div>
 </div>
 </div>
 </div>
 <div class="pie"><p>Lo que falta para lanzar · 1 de 5</p><p class="pag"></p></div>
-<aside>Lo que vieron en la demo es una maqueta de alta calidad: se entiende el edificio y se puede recorrer, pero nadie puede vivir ahí todavía. Estos son los momentos de la obra.</aside>
+<aside>Ya no es una maqueta: el edificio está levantado en su terreno. K-Test ya corre en internet, pero la obra está cerrada al público.</aside>
 </section>
 
-<section id="m2" data-transition="fade">
-<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<section id="e2" data-grupo="obra" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
 <div class="etapa">
-<img class="etapa-img" src="assets/edificio-2-estructura.svg" alt="Estructura de columnas y losas">
+<img class="etapa-img" src="assets/edificio-3-instalaciones.svg" alt="Estructura con tuberías azules conectadas al edificio de admisiones">
 <div class="etapa-info">
-<p class="etiqueta vacia entra">Momento 2</p>
-<p class="etapa-nombre entra" style="--i:1">Estructura</p>
-<div class="dato entra" style="--i:2"><p class="chico">Hoy</p><p class="texto">Corre en una computadora.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Servidor en la nube y una arquitectura para todos los admitidos.</p></div>
-<div class="miniaturas entra" style="--i:4">
-<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
-<img class="mini actual" src="assets/edificio-2-estructura.svg" alt="Estructura">
-<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
+<p class="etiqueta vacia entra">Paso 2</p>
+<p class="etapa-nombre entra" style="--i:1">Instalaciones</p>
+<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Acceso con cuentas de Google y Microsoft.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Conectarlo con el sistema de admisiones, para que cada admitido y su ciclo lleguen solos. Con TI de Key.</p></div>
+<div class="obra-camino">
+<div class="miniaturas">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
+<img class="mini actual" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
 <img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
 <img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
+</div>
+<div class="avance"><div class="avance-lleno" style="--desde:80px; --hasta:264px;"></div></div>
 </div>
 </div>
 </div>
 <div class="pie"><p>Lo que falta para lanzar · 2 de 5</p><p class="pag"></p></div>
-<aside>La estructura: dónde vive la plataforma y que aguante a todos los admitidos al mismo tiempo.</aside>
+<aside>El agua y la luz: los datos. La tubería azul es la conexión con admisiones, el otro edificio.</aside>
 </section>
 
-<section id="m3" data-transition="fade">
-<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<section id="e3" data-grupo="obra" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
 <div class="etapa">
-<img class="etapa-img" src="assets/edificio-3-instalaciones.svg" alt="Estructura con tuberías azules conectadas a otro edificio">
+<img class="etapa-img" src="assets/edificio-4-seguridad.svg" alt="Edificio cerrado con puerta, cerca y caseta de vigilancia">
 <div class="etapa-info">
-<p class="etiqueta vacia entra">Momento 3</p>
-<p class="etapa-nombre entra" style="--i:1">Instalaciones</p>
-<div class="dato entra" style="--i:2"><p class="chico">Hoy</p><p class="texto">Base de datos de prueba.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Base de datos consistente, conectada al sistema de admisiones.</p></div>
-<div class="miniaturas entra" style="--i:4">
-<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
-<img class="mini actual" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
-<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
+<p class="etiqueta vacia entra">Paso 3</p>
+<p class="etapa-nombre entra" style="--i:1">Seguridad y recepción</p>
+<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">PIN para docentes y dominios permitidos.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Login único de Key, aviso de privacidad, cuidado de datos de menores y respaldos.</p></div>
+<div class="obra-camino">
+<div class="miniaturas">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
+<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
+<img class="mini actual" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
 <img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
+</div>
+<div class="avance"><div class="avance-lleno" style="--desde:264px; --hasta:448px;"></div></div>
 </div>
 </div>
 </div>
 <div class="pie"><p>Lo que falta para lanzar · 3 de 5</p><p class="pag"></p></div>
-<aside>El agua y la luz: los datos. La tubería azul es la conexión con admisiones, el otro edificio.</aside>
+<aside>Portones, vigilantes y recepción: quién entra, qué ve cada quien y cómo cuidamos los datos de menores.</aside>
 </section>
 
-<section id="m4" data-transition="fade">
-<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<section id="e4" data-grupo="obra" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
 <div class="etapa">
-<img class="etapa-img" src="assets/edificio-4-seguridad.svg" alt="Edificio cerrado con puerta, cerca y caseta de vigilancia">
+<img class="etapa-img" src="assets/edificio-5-acabados.svg" alt="Edificio terminado con ventanas azules y franja de Key">
 <div class="etapa-info">
-<p class="etiqueta vacia entra">Momento 4</p>
-<p class="etapa-nombre entra" style="--i:1">Seguridad y recepción</p>
-<div class="dato entra" style="--i:2"><p class="chico">Hoy</p><p class="texto">Inicio con Microsoft, en pruebas.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Cuenta única de Key, permisos por rol, datos de menores protegidos y respaldos.</p></div>
-<div class="miniaturas entra" style="--i:4">
-<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<p class="etiqueta vacia entra">Paso 4</p>
+<p class="etapa-nombre entra" style="--i:1">Acabados</p>
+<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Un simulacro completo y 8 sprints.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Visto bueno de la marca, más simulacros, sprints y material de estudio.</p></div>
+<div class="obra-camino">
+<div class="miniaturas">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
 <img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
-<img class="mini actual" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
-<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
+<img class="mini actual" src="assets/edificio-5-acabados.svg" alt="Acabados">
+<img class="mini" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
+</div>
+<div class="avance"><div class="avance-lleno" style="--desde:448px; --hasta:632px;"></div></div>
 </div>
 </div>
 </div>
 <div class="pie"><p>Lo que falta para lanzar · 4 de 5</p><p class="pag"></p></div>
-<aside>Portones, vigilantes y recepción: quién entra, qué puede ver cada quien y cómo cuidamos los datos de menores.</aside>
+<aside>Las ventanas y el mobiliario de Key: la marca, el material, los simulacros y los sprints.</aside>
 </section>
 
-<section id="m5" data-transition="fade">
-<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<section id="e5" data-grupo="obra" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
+<h2 class="titulo" style="margin-bottom:40px;">De la obra a la inauguración</h2>
 <div class="etapa">
-<img class="etapa-img" src="assets/edificio-5-acabados.svg" alt="Edificio terminado con ventanas azules y franja de Key">
+<img class="etapa-img" src="assets/edificio-6-inauguracion.svg" alt="Edificio terminado con listón azul en la entrada, bandera y personas llegando">
 <div class="etapa-info">
-<p class="etiqueta vacia entra">Momento 5</p>
-<p class="etapa-nombre entra" style="--i:1">Acabados</p>
-<div class="dato entra" style="--i:2"><p class="chico">Falta</p><p class="texto">Identidad Key completa, material de estudio, más simulacros y sprints.</p></div>
-<div class="dato entra" style="--i:3"><p class="chico">Antes de abrir: el permiso de habitabilidad</p><p class="texto">Prueba piloto, aviso de privacidad y revisión de seguridad.</p></div>
-<div class="miniaturas entra" style="--i:4">
-<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
-<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<p class="etiqueta vacia entra">Paso 5</p>
+<p class="etapa-nombre entra" style="--i:1">Inauguración</p>
+<div class="dato entra" style="--i:2"><p class="chico">Antes de abrir</p><p class="texto">Piloto con un grupo de admitidos.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Para abrir</p><p class="texto">Dirección web de Key, cuentas a nombre de Key y acceso para todos los admitidos.</p></div>
+<div class="obra-camino">
+<div class="miniaturas">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Obra gris">
 <img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
 <img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
-<img class="mini actual" src="assets/edificio-5-acabados.svg" alt="Acabados">
+<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+<img class="mini actual" src="assets/edificio-6-inauguracion.svg" alt="Inauguración">
+</div>
+<div class="avance"><div class="avance-lleno" style="--desde:632px; --hasta:816px;"></div></div>
 </div>
 </div>
 </div>
 <div class="pie"><p>Lo que falta para lanzar · 5 de 5</p><p class="pag"></p></div>
-<aside>Las ventanas y el mobiliario de Key: el material, los simulacros y los sprints. Y antes de abrir, como en cualquier edificio, el permiso de habitabilidad.</aside>
+<aside>El permiso de habitabilidad y la entrega de llaves: un piloto y luego abrimos a todos los admitidos.</aside>
 </section>
 
 <section id="pedimos" class="azul" data-transition="fade">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <p class="texto entra" style="color:#dfe8f7;">Lo que pedimos</p>
 <h2 class="entra" style="--i:1; font-size:200px; font-weight:700; line-height:0.95; letter-spacing:-6px; margin:40px 0 56px;">Aprobar el proyecto</h2>
-<p class="portada-sub entra" style="--i:2; width:1200px;">Para pasar de la maqueta al edificio y abrir K-Test a todos los admitidos de Key.</p>
+<p class="portada-sub entra" style="--i:2; width:1200px;">Para terminar la obra y abrir K-Test a todos los admitidos de Key.</p>
 <div class="pie"><p>Lo que pedimos</p><p class="pag"></p></div>
-<aside>Una sola petición: aprobar el proyecto. Con eso armamos el calendario de los cinco momentos.</aside>
+<aside>Una sola petición: aprobar el proyecto. Con eso armamos el calendario de los pasos que faltan.</aside>
 </section>
 
 <section id="cierre">
+<canvas class="ambiente" width="1920" height="1080" aria-hidden="true"></canvas>
 <img class="logo entra" src="assets/logo-key.svg" alt="Key Institute">
 <div class="portada-cuerpo">
 <div class="portada-texto">
@@ -490,45 +634,149 @@ body.raton #ayuda { opacity: 1; }
   const escenario = document.getElementById('escenario');
   const diapositivas = [...escenario.querySelectorAll(':scope > section')];
   const notas = document.getElementById('notas');
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
   diapositivas.forEach((d, i) => d.querySelectorAll('.pag').forEach((p) => { p.textContent = i + 1; }));
-  let actual = 0;
+  let actual = -1;
+  let escala = 1;
 
   function ajustar() {
-    const k = Math.min(innerWidth / 1920, innerHeight / 1080);
-    escenario.style.transform = 'scale(' + k + ') translate(-50%, -50%)';
+    escala = Math.min(innerWidth / 1920, innerHeight / 1080);
+    escenario.style.transform = 'scale(' + escala + ') translate(-50%, -50%)';
   }
   const pasos = (d) => [...d.querySelectorAll('.fragment')];
+  const CLASES = ['activa', 'sale-adelante', 'sale-atras', 'llega-adelante', 'llega-atras', 'mismo-grupo'];
 
-  function mostrar(i, todosLosPasos) {
-    i = Math.max(0, Math.min(diapositivas.length - 1, i));
-    diapositivas.forEach((d, j) => {
-      const activa = j === i;
-      d.classList.toggle('activa', activa);
-      d.querySelectorAll('video').forEach((v) => { if (activa) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); });
+  // Cifras que cuentan desde 0
+  function contar(d) {
+    d.querySelectorAll('[data-contar]').forEach((el) => {
+      const meta = Number(el.dataset.contar);
+      if (quieto) { el.textContent = meta; return; }
+      const inicio = performance.now() + 450;
+      el.textContent = '0';
+      const paso = (t) => {
+        const p = Math.min(1, Math.max(0, (t - inicio) / 1300));
+        el.textContent = Math.round(meta * (1 - Math.pow(1 - p, 3)));
+        if (p < 1 && d.classList.contains('activa')) requestAnimationFrame(paso);
+      };
+      requestAnimationFrame(paso);
     });
-    pasos(diapositivas[i]).forEach((f) => f.classList.toggle('visible', Boolean(todosLosPasos)));
+  }
+
+  // La etapa de la obra sale de su miniatura: crece, gira y se asienta
+  function desdeMiniatura(d) {
+    const grande = d.querySelector('.etapa-img');
+    const mini = d.querySelector('.mini.actual');
+    if (!grande || !mini || quieto) return;
+    requestAnimationFrame(() => {
+      const a = mini.getBoundingClientRect();
+      const b = grande.getBoundingClientRect();
+      const dx = (a.left + a.width / 2 - (b.left + b.width / 2)) / escala;
+      const dy = (a.top + a.height / 2 - (b.top + b.height / 2)) / escala;
+      const s = a.width / b.width;
+      grande.animate([
+        { transform: `translate(${dx}px, ${dy}px) scale(${s}) rotate(-28deg)`, opacity: 0.4 },
+        { transform: 'translate(0, 0) scale(1.05) rotate(4deg)', opacity: 1, offset: 0.72 },
+        { transform: 'none', opacity: 1 },
+      ], { duration: 1150, easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)', fill: 'both', delay: 150 });
+      mini.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 600, easing: 'ease-out' });
+    });
+  }
+
+  function mostrar(i, todosLosPasos, direccion) {
+    i = Math.max(0, Math.min(diapositivas.length - 1, i));
+    if (i === actual) return;
+    const vieja = diapositivas[actual];
+    const nueva = diapositivas[i];
+    const mismoGrupo = vieja && nueva.dataset.grupo && vieja.dataset.grupo === nueva.dataset.grupo;
+    diapositivas.forEach((d) => { if (d !== vieja) d.classList.remove(...CLASES); });
+    if (vieja) {
+      vieja.classList.remove(...CLASES);
+      if (!mismoGrupo && !quieto) {
+        vieja.classList.add(direccion < 0 ? 'sale-atras' : 'sale-adelante');
+        vieja.addEventListener('animationend', function fin(e) {
+          if (e.target !== vieja) return;
+          vieja.classList.remove('sale-atras', 'sale-adelante');
+          vieja.removeEventListener('animationend', fin);
+        });
+      }
+      vieja.querySelectorAll('video').forEach((v) => v.pause());
+    }
+    nueva.classList.add('activa');
+    if (vieja && !quieto) nueva.classList.add(mismoGrupo ? 'mismo-grupo' : direccion < 0 ? 'llega-atras' : 'llega-adelante');
+    nueva.querySelectorAll('video').forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
+    pasos(nueva).forEach((f) => f.classList.toggle('visible', Boolean(todosLosPasos)));
     actual = i;
-    const nota = diapositivas[i].querySelector('aside');
+    contar(nueva);
+    desdeMiniatura(nueva);
+    const nota = nueva.querySelector('aside');
     notas.textContent = nota ? nota.textContent : '';
     history.replaceState(null, '', '#' + (i + 1));
+    if (quieto) requestAnimationFrame(dibujar);
   }
   function siguiente() {
     const pendiente = pasos(diapositivas[actual]).find((f) => !f.classList.contains('visible'));
     if (pendiente) pendiente.classList.add('visible');
-    else if (actual < diapositivas.length - 1) mostrar(actual + 1, false);
+    else if (actual < diapositivas.length - 1) mostrar(actual + 1, false, 1);
   }
   function anterior() {
     const vistos = pasos(diapositivas[actual]).filter((f) => f.classList.contains('visible'));
     if (vistos.length) vistos[vistos.length - 1].classList.remove('visible');
-    else if (actual > 0) mostrar(actual - 1, true);
+    else if (actual > 0) mostrar(actual - 1, true, -1);
+  }
+
+  // Fondo vivo: retícula isométrica que se desliza y pulsos de luz que la recorren
+  const C30 = Math.cos(Math.PI / 6), S30 = Math.sin(Math.PI / 6);
+  const pulsos = Array.from({ length: 9 }, () => nuevoPulso(true));
+  function nuevoPulso(inicial) {
+    const sube = Math.random() < 0.5;
+    return { x: inicial ? Math.random() * 1920 : -150, y: Math.random() * 1080 + (sube ? 300 : -300), vx: C30, vy: sube ? -S30 : S30, v: 0.6 + Math.random() * 0.9, largo: 90 + Math.random() * 120 };
+  }
+  let desplazamiento = 0;
+  function dibujar() {
+    const d = diapositivas[actual];
+    const lienzo = d && d.querySelector('.ambiente');
+    if (lienzo) {
+      const g = lienzo.getContext('2d');
+      const oscuro = d.classList.contains('tinta') || d.classList.contains('azul');
+      const base = oscuro ? '255,255,255' : '0,109,255';
+      g.clearRect(0, 0, 1920, 1080);
+      g.lineWidth = 1;
+      g.strokeStyle = `rgba(${base},${oscuro ? 0.06 : 0.055})`;
+      const paso = 110;
+      const off = desplazamiento % paso;
+      g.beginPath();
+      for (let k = -2200; k < 3200; k += paso) {
+        const b = k + off;
+        g.moveTo(b, 0); g.lineTo(b + 1080 * C30 / S30, 1080);
+        g.moveTo(b, 1080); g.lineTo(b + 1080 * C30 / S30, 0);
+      }
+      g.stroke();
+      for (const p of pulsos) {
+        const grad = g.createLinearGradient(p.x - p.vx * p.largo, p.y - p.vy * p.largo, p.x, p.y);
+        grad.addColorStop(0, `rgba(${base},0)`);
+        grad.addColorStop(1, `rgba(${base},${oscuro ? 0.35 : 0.28})`);
+        g.strokeStyle = grad;
+        g.lineWidth = 2;
+        g.beginPath();
+        g.moveTo(p.x - p.vx * p.largo, p.y - p.vy * p.largo);
+        g.lineTo(p.x, p.y);
+        g.stroke();
+        g.fillStyle = `rgba(${base},${oscuro ? 0.5 : 0.35})`;
+        g.beginPath(); g.arc(p.x, p.y, 2.5, 0, Math.PI * 2); g.fill();
+        if (!quieto) { p.x += p.vx * p.v; p.y += p.vy * p.v; }
+        if (p.x > 2100 || p.y < -200 || p.y > 1280) Object.assign(p, nuevoPulso(false));
+      }
+      if (!quieto) desplazamiento += 0.12;
+    }
+    if (!quieto) requestAnimationFrame(dibujar);
   }
 
   addEventListener('keydown', (e) => {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); siguiente(); }
     else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); anterior(); }
-    else if (e.key === 'Home') mostrar(0, false);
-    else if (e.key === 'End') mostrar(diapositivas.length - 1, true);
+    else if (e.key === 'Home') mostrar(0, false, -1);
+    else if (e.key === 'End') mostrar(diapositivas.length - 1, true, 1);
     else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
     else if (e.key === 'n' || e.key === 'N') notas.classList.toggle('abierta');
   });
@@ -540,8 +788,10 @@ body.raton #ayuda { opacity: 1; }
   addEventListener('mousemove', () => { document.body.classList.add('raton'); clearTimeout(reposo); reposo = setTimeout(() => document.body.classList.remove('raton'), 1800); });
   addEventListener('resize', ajustar);
   ajustar();
-  mostrar((parseInt(location.hash.slice(1), 10) || 1) - 1, false);
+  mostrar((parseInt(location.hash.slice(1), 10) || 1) - 1, false, 1);
+  requestAnimationFrame(dibujar);
 })();
+
 </script>
 </body>
 </html>
