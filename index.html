@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K-Test · Presentación</title>
+<meta name="description" content="K-Test: práctica de la PAA para los admitidos de Key Institute.">
+<link rel="icon" href="assets/edificio-5-acabados.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+* { margin: 0; box-sizing: border-box; }
+html, body { height: 100%; background: #0c0c0c; overflow: hidden; }
+#escenario { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; }
+h1 { font-size: 96px; font-weight: 600; } h2 { font-size: 64px; font-weight: 600; } h3 { font-size: 44px; font-weight: 600; } p { font-size: 32px; }
+:root {
+  --azul: #006dff;
+  --azul-claro: #e6f0ff;
+  --tinta: #111111;
+  --suave: #4b5363;
+  --fondo: #fcfcfb;
+  --gris: #f3f5f8;
+  --barra: #c3ccd9;
+}
+
+section {
+  padding: 128px 128px 160px;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: 'Albert Sans', Arial, sans-serif;
+  counter-increment: page;
+}
+section.gris { background: var(--gris); }
+section.azul { background: var(--azul); color: #fcfcfb; }
+section.tinta { background: var(--tinta); color: #fcfcfb; }
+
+/* Tipos: 160 / 72 / 44 / 32 / 24 */
+.titulo { font-size: 72px; font-weight: 600; line-height: 1.05; letter-spacing: -1.5px; margin: 0 0 64px; }
+.bajada { font-size: 32px; line-height: 1.35; color: var(--suave); }
+.texto { font-size: 32px; line-height: 1.35; }
+.chico { font-size: 24px; line-height: 1.4; color: var(--suave); }
+.num { font-family: 'JetBrains Mono', 'Courier New', monospace; font-weight: 500; letter-spacing: -2px; }
+.grande { font-size: 160px; line-height: 1; }
+.medio { font-size: 72px; line-height: 1; }
+h3 { font-size: 44px; font-weight: 600; line-height: 1.1; letter-spacing: -0.5px; }
+
+/* Pie: sección y número de página */
+.pie { position: absolute; left: 128px; bottom: 64px; width: 1664px; display: flex; justify-content: space-between; }
+.pie p { font-size: 24px; color: var(--suave); }
+.pie .pag::after { content: counter(page); }
+section.azul .pie p, section.tinta .pie p { color: #dfe8f7; }
+
+/* Entradas al llegar a la diapositiva */
+.entra { animation: subir 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 110ms); }
+@keyframes subir { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.barra { transform-origin: 50% 100%; animation: crecer 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 70ms + 200ms); }
+@keyframes crecer { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.barra-h { transform-origin: 0 50%; animation: crecer-h 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 90ms + 200ms); }
+@keyframes crecer-h { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Pasos que el expositor revela con clic: lo que viene se ve tenue */
+.fragment { opacity: 0.16; transition: opacity 0.45s ease; }
+.fragment.visible { opacity: 1; }
+
+/* Portada */
+.logo { width: 410px; height: 69px; }
+.portada-cuerpo { display: flex; align-items: center; justify-content: space-between; gap: 48px; margin-top: 40px; }
+.portada-texto { display: flex; flex-direction: column; gap: 32px; width: 860px; }
+.marca { font-size: 220px; font-weight: 700; line-height: 0.9; letter-spacing: -8px; color: var(--azul); }
+.portada-sub { font-size: 44px; line-height: 1.2; font-weight: 500; }
+.portada-autores { font-size: 24px; line-height: 1.5; color: var(--suave); }
+.portada-img { width: 740px; height: 648px; object-fit: contain; }
+
+/* Celdas en línea de Key: bordes finos que se tocan */
+.celdas { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1.5px solid var(--tinta); }
+.celda { padding: 40px; display: flex; flex-direction: column; gap: 20px; border-left: 1.5px solid var(--tinta); }
+.celda.primera { border-left: none; }
+.celda .texto { color: var(--suave); }
+
+/* Dos columnas */
+.dos { display: flex; gap: 72px; align-items: flex-start; }
+.captura { border: 1.5px solid var(--tinta); object-fit: contain; background: #ffffff; }
+
+/* Línea del tiempo */
+.hitos { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 3px solid var(--tinta); }
+.hito { padding: 32px 40px 0 0; display: flex; flex-direction: column; gap: 16px; }
+.hito .cuando { font-size: 32px; color: var(--azul); font-weight: 600; }
+.hito.ahora .cuando { color: var(--tinta); }
+
+/* Gráfica de barras por mes */
+.grafica { display: flex; align-items: flex-end; gap: 22px; height: 560px; border-bottom: 2px solid var(--tinta); }
+.col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 12px; width: 120px; }
+.col .valor { font-size: 28px; }
+.col .bar { width: 96px; background: var(--barra); }
+.col .bar.alta { background: var(--azul); }
+.meses { display: flex; gap: 22px; margin-top: 16px; }
+.meses p { width: 120px; text-align: center; font-size: 24px; color: var(--suave); }
+.meses p.alta { color: var(--tinta); font-weight: 600; }
+
+.grafica.ancha, .meses.ancha { gap: 34px; }
+.grafica.ancha .col, .meses.ancha p { width: 178px; }
+.grafica.ancha .col .bar { width: 132px; }
+
+/* Momentos: una etapa destacada y sus detalles */
+.etapa { display: flex; gap: 64px; align-items: flex-start; }
+.etapa-img { width: 680px; height: 595px; object-fit: contain; animation: girar 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes girar { from { opacity: 0; transform: rotate(-14deg) scale(0.5); } to { opacity: 1; transform: rotate(0deg) scale(1); } }
+.etapa-info { width: 920px; display: flex; flex-direction: column; gap: 24px; }
+.etapa-nombre { font-size: 72px; font-weight: 600; line-height: 1.05; letter-spacing: -1.5px; }
+.dato { display: flex; flex-direction: column; gap: 8px; border-top: 1.5px solid var(--tinta); padding-top: 16px; }
+.dato .texto { font-size: 32px; }
+.miniaturas { display: flex; gap: 24px; margin-top: 8px; }
+.mini { width: 160px; height: 140px; object-fit: contain; opacity: 0.3; border-bottom: 4px solid var(--fondo); }
+.mini.actual { opacity: 1; border-bottom: 4px solid var(--azul); }
+
+/* Impacto */
+.impacto { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; border: 1.5px solid var(--tinta); }
+.impacto .tarjeta { gap: 12px; padding: 36px; }
+.impacto .sube { font-size: 72px; line-height: 1; color: var(--azul); }
+
+/* Barras horizontales */
+.filas { display: flex; flex-direction: column; gap: 28px; }
+.fila { display: flex; align-items: center; gap: 28px; }
+.fila .etq { width: 150px; font-size: 32px; text-align: right; }
+.fila .barh { height: 64px; background: var(--barra); }
+.fila .barh.alta { background: var(--azul); }
+.fila .valor { font-size: 32px; }
+
+/* Tarjetas de evolución */
+.tarjetas { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1.5px solid var(--tinta); }
+.tarjeta { padding: 40px; display: flex; flex-direction: column; gap: 24px; border-left: 1.5px solid var(--tinta); background: var(--fondo); }
+.tarjeta.primera { border-left: none; }
+.tarjeta .cambio { font-size: 56px; line-height: 1; }
+.tarjeta .flecha { color: var(--azul); }
+
+/* Tabla de lo que falta */
+.tabla { width: 100%; font-size: 28px; color: var(--tinta); }
+
+/* Momentos */
+.momentos { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 24px; }
+.momento { display: flex; flex-direction: column; gap: 16px; }
+.momento img { width: 316px; height: 277px; object-fit: contain; }
+.momento h3 { font-size: 36px; }
+.momento .chico { font-size: 24px; }
+.etiqueta { align-self: flex-start; font-size: 24px; font-weight: 600; padding: 6px 18px; border-radius: 999px; background: var(--azul); color: #fcfcfb; }
+.etiqueta.vacia { background: transparent; color: var(--suave); border: 1.5px solid var(--suave); }
+
+/* Pregunta y respuesta */
+.faq { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 72px; }
+.faq-item { display: flex; flex-direction: column; gap: 12px; border-top: 1.5px solid var(--tinta); padding-top: 24px; }
+.faq-item .p { font-size: 32px; font-weight: 600; line-height: 1.2; }
+.faq-item .r { font-size: 28px; line-height: 1.4; color: var(--suave); }
+
+section { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: none; }
+section.activa { display: block; animation: aparecer 0.5s ease both; }
+@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+section aside { display: none; }
+.pie .pag::after { content: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+#notas { position: fixed; left: 0; right: 0; bottom: 0; max-height: 40vh; overflow: auto; padding: 16px 24px; background: rgba(17,17,17,.94); color: #f3f5f8; font: 18px/1.5 'Albert Sans', Arial, sans-serif; display: none; z-index: 10; }
+#notas.abierta { display: block; }
+#ayuda { position: fixed; right: 16px; bottom: 12px; color: #8a93a3; font: 13px 'Albert Sans', Arial, sans-serif; opacity: 0; transition: opacity .3s; pointer-events: none; }
+body.raton #ayuda { opacity: 1; }
+</style>
+</head>
+<body>
+<main id="escenario" aria-live="polite">
+<section id="portada" data-transition="fade">
+<img class="logo entra" src="assets/logo-key.svg" alt="Key Institute">
+<div class="portada-cuerpo">
+<div class="portada-texto">
+<h1 class="marca entra" style="--i:1">K-Test</h1>
+<p class="portada-sub entra" style="--i:2">Práctica de la PAA para los admitidos de Key, desde cualquier lugar.</p>
+<p class="portada-autores entra" style="--i:3">Soham Villacorta e Iván Figueroa<br>Curso de Preparación para la PAA, noviembre de 2026</p>
+</div>
+<img class="portada-img entra" style="--i:2" src="assets/edificio-5-acabados.svg" alt="Ilustración isométrica de un edificio de Key terminado">
+</div>
+<aside>Buenas. Venimos a presentar K-Test: la plataforma donde los admitidos de Key practican la PAA desde su casa. En 15 minutos: qué es, por qué, lo que aprendimos del curso, una demo y lo que falta para lanzarlo.</aside>
+</section>
+
+<section id="que-es" data-transition="fade">
+<h2 class="titulo">Qué es K-Test</h2>
+<div class="dos">
+<div style="display:flex; flex-direction:column; gap:48px; width:700px;">
+<p class="entra" style="--i:1; font-size:52px; font-weight:600; line-height:1.15; letter-spacing:-1px;">La PAA, practicada como el día del examen, desde donde estés.</p>
+<div style="display:flex; flex-direction:column; gap:24px;">
+<div class="entra" style="--i:2; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><p class="texto">Simulacros completos</p></div>
+<div class="entra" style="--i:3; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><p class="texto">Sprints cortos por tema</p></div>
+<div class="entra" style="--i:4; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><p class="texto">Su nivel, de Emergente a Competente</p></div>
+<div class="entra" style="--i:5; display:flex; gap:24px; align-items:center;"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px; height:40px; color:var(--azul);; flex:none;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><p class="texto">Material de estudio</p></div>
+</div>
+</div>
+<img class="captura entra" style="--i:2; width:880px; height:495px;" src="assets/inicio.png" alt="Inicio del estudiante en K-Test: simulacro, sprints, nivel y material">
+</div>
+<div class="pie"><p>Qué es K-Test</p><p class="pag"></p></div>
+<aside>Una plataforma web: el admitido entra con su cuenta, practica con simulacros y sprints, ve su nivel y estudia el material. Va a crecer con más pruebas y más material.</aside>
+</section>
+
+<section id="por-que" data-transition="fade">
+<h2 class="titulo">Por qué lo hacemos</h2>
+<div class="celdas">
+<div class="celda primera entra" style="--i:1"><h3>Conoce la prueba</h3><p class="texto">El formato y los ejercicios de Lectura, Redacción y Matemáticas.</p></div>
+<div class="celda entra" style="--i:2"><h3>A tu ritmo</h3><p class="texto">Cuando quieras y desde donde estés.</p></div>
+<div class="celda entra" style="--i:3"><h3>Sin costo</h3><p class="texto">Simulacros, sprints y material, sin pagar nada.</p></div>
+</div>
+<img class="entra" style="--i:4; width:1664px; height:300px; object-fit:cover; margin-top:48px;" src="assets/cohorte-campus.webp" alt="Generación de estudiantes de Key en el campus">
+<div class="pie"><p>Qué es K-Test</p><p class="pag"></p></div>
+<aside>Son las tres razones que ya dice la página de K-Test. La idea de fondo: que ningún admitido llegue a la PAA sin haber visto la prueba.</aside>
+</section>
+
+<section id="quienes" data-transition="fade">
+<h2 class="titulo">Quiénes lo hacemos</h2>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:72px;">
+<div class="entra" style="--i:1; display:flex; flex-direction:column; gap:12px;"><h3>Soham Villacorta</h3><p class="bajada">Experiencia y diseño de la plataforma</p></div>
+<div class="entra" style="--i:2; display:flex; flex-direction:column; gap:12px;"><h3>Iván Figueroa</h3><p class="bajada">Datos y servidor de la plataforma</p></div>
+</div>
+<p class="texto entra" style="--i:3; margin:56px 0 32px;">Desde abril damos juntos el Curso de Preparación para la PAA. Así trabajamos hoy:</p>
+<div class="celdas" style="grid-template-columns:1fr 1fr;">
+<div class="celda primera entra" style="--i:4"><h3 style="color:var(--azul);">Metodología enfocada en el examen</h3><p class="texto">Cada jornada practica el formato, los tiempos y las estrategias de la PAA.</p></div>
+<div class="celda entra" style="--i:5"><h3 style="color:var(--azul);">Técnicas para manejar la ansiedad</h3><p class="texto">Para llegar con calma al día de la prueba.</p></div>
+</div>
+<div class="pie"><p>El curso en números</p><p class="pag"></p></div>
+<aside>Lo que sigue viene de lo que aprendimos dando el curso desde abril.</aside>
+</section>
+
+<section id="asistencia" class="gris" data-transition="fade">
+<h2 class="titulo">Asistencia desde abril</h2>
+<div class="entra" style="--i:1; display:flex; align-items:baseline; gap:48px; margin-top:120px;">
+<p class="num" style="font-size:320px; line-height:1; color:var(--azul);">184</p>
+<p class="portada-sub" style="width:640px;">jóvenes vinieron al curso al menos un sábado</p>
+</div>
+<div class="pie"><p>El curso en números</p><p class="pag"></p></div>
+<aside>Cada joven cuenta una vez, aunque se haya inscrito en varios meses.</aside>
+</section>
+
+<section id="temporada" data-transition="fade">
+<h2 class="titulo" style="margin-bottom:24px;">Temporada alta: mayo a julio</h2>
+<p class="bajada entra" style="margin-bottom:40px;"><span class="num" style="color:var(--tinta); letter-spacing:0;">409</span> asistencias desde abril; 237 en mayo, junio y julio (58 %).</p>
+<div class="grafica ancha" style="height:460px;" role="img" aria-label="Asistencias por mes, de abril a noviembre de 2026">
+<div class="col"><p class="num valor">32</p><div class="bar barra" style="--i:0; height:138px;"></div></div>
+<div class="col"><p class="num valor">93</p><div class="bar alta barra" style="--i:1; height:400px;"></div></div>
+<div class="col"><p class="num valor">78</p><div class="bar alta barra" style="--i:2; height:335px;"></div></div>
+<div class="col"><p class="num valor">66</p><div class="bar alta barra" style="--i:3; height:284px;"></div></div>
+<div class="col"><p class="num valor">50</p><div class="bar barra" style="--i:4; height:215px;"></div></div>
+<div class="col"><p class="num valor">25</p><div class="bar barra" style="--i:5; height:108px;"></div></div>
+<div class="col"><p class="num valor">38</p><div class="bar barra" style="--i:6; height:163px;"></div></div>
+<div class="col"><p class="num valor">27</p><div class="bar barra" style="--i:7; height:116px;"></div></div>
+</div>
+<div class="meses ancha">
+<p>Abr</p><p class="alta">May</p><p class="alta">Jun</p><p class="alta">Jul</p><p>Ago</p><p>Sep</p><p>Oct</p><p>Nov</p>
+</div>
+<div class="pie"><p>El curso en números · asistencias por mes</p><p class="pag"></p></div>
+<aside>Una asistencia es una persona en un sábado. Los sábados más llenos: 16 y 30 de mayo, 27 de junio y 25 de julio, con 24 o 25 jóvenes cada uno.</aside>
+</section>
+
+<section id="constancia" data-transition="fade">
+<h2 class="titulo">Más de un tercio vino un solo sábado</h2>
+<div class="dos" style="align-items:center; margin-top:24px;">
+<div class="entra" style="--i:1; width:500px; display:flex; flex-direction:column; gap:16px;">
+<p class="num grande" style="color:var(--azul);">38%</p>
+<p class="texto">69 de los 184 jóvenes</p>
+</div>
+<div class="filas" role="img" aria-label="Jóvenes según cuántos sábados asistieron desde abril">
+<div class="fila"><p class="etq" style="width:220px;">1 sábado</p><div class="barh alta barra-h" style="--i:0; width:750px;"></div><p class="num valor">69</p></div>
+<div class="fila"><p class="etq" style="width:220px;">2</p><div class="barh barra-h" style="--i:1; width:446px;"></div><p class="num valor">41</p></div>
+<div class="fila"><p class="etq" style="width:220px;">3</p><div class="barh barra-h" style="--i:2; width:457px;"></div><p class="num valor">42</p></div>
+<div class="fila"><p class="etq" style="width:220px;">4 o más</p><div class="barh barra-h" style="--i:3; width:348px;"></div><p class="num valor">32</p></div>
+</div>
+</div>
+<div class="pie"><p>El curso en números · sábados asistidos por joven, desde abril</p><p class="pag"></p></div>
+<aside>El curso está pensado para 4 sábados y solo 32 llegaron. K-Test ayuda a que la práctica siga entre sábados y llegue a quien no puede venir.</aside>
+</section>
+
+<section id="encuestas" class="gris" data-transition="fade">
+<h2 class="titulo" style="margin-bottom:48px;">Impacto desde agosto</h2>
+<div class="impacto">
+<div class="tarjeta primera entra" style="--i:1"><h3 style="font-size:32px;">Cumplió expectativas</h3><p class="num sube">+0.75</p><p class="num chico">3.87 → 4.62</p></div>
+<div class="tarjeta entra" style="--i:2"><h3 style="font-size:32px;">Motivación</h3><p class="num sube">+0.60</p><p class="num chico">3.83 → 4.43</p></div>
+<div class="tarjeta entra" style="--i:3"><h3 style="font-size:32px;">Me preparó para la PAA</h3><p class="num sube">+0.48</p><p class="num chico">4.04 → 4.52</p></div>
+<div class="tarjeta entra" style="--i:4"><h3 style="font-size:32px;">Retroalimentación</h3><p class="num sube">+0.44</p><p class="num chico">4.13 → 4.57</p></div>
+</div>
+<p class="chico entra" style="--i:5; margin:48px 0 12px;">Por mejorar</p>
+<div class="entra" style="--i:6; display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px;">
+<div class="dato"><p class="texto">Manejo de la ansiedad</p><p class="num medio">3.57</p></div>
+<div class="dato"><p class="texto">Capaz de aplicarlo</p><p class="num medio">3.95</p></div>
+<div class="dato"><p class="texto">Claridad para resolver</p><p class="num medio">4.83 → 4.29</p></div>
+</div>
+<div class="pie"><p>El curso en números · encuesta de cada jornada, agosto contra noviembre, escala de 1 a 5</p><p class="pag"></p></div>
+<aside>Agosto, con el formulario nuevo, contra noviembre. La ansiedad subió de 3.11 a 3.57 desde que trabajamos técnicas para manejarla, pero sigue siendo lo más bajo. La claridad para resolver bajó: es lo que más hay que cuidar.</aside>
+</section>
+
+<section id="valoracion" data-transition="fade">
+<h2 class="titulo">Lo que más piden</h2>
+<div class="entra" style="--i:1; display:flex; align-items:baseline; gap:56px; margin-top:96px;">
+<p class="num" style="font-size:320px; line-height:1; color:var(--azul);">41</p>
+<p class="portada-sub" style="width:760px;">veces piden «más ejercicios» en sus comentarios</p>
+</div>
+<div class="pie"><p>El curso en números · comentarios de agosto a noviembre</p><p class="pag"></p></div>
+<aside>Lo que más piden es practicar más. Eso es justamente K-Test.</aside>
+</section>
+
+<section id="hueco" class="tinta" data-transition="fade">
+<h2 class="titulo">Lo que el sábado no alcanza</h2>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px;">
+<p class="chico" style="color:#b9c2d0; padding-bottom:16px;">Hoy</p>
+<p class="chico" style="color:#b9c2d0; padding-bottom:16px;">Con K-Test</p>
+</div>
+<div class="fragment" style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px; border-top:1.5px solid #5a6170; padding:28px 0;">
+<p class="texto">Viven lejos del campus</p><p class="texto" style="color:#8fbcff;">Practican desde su casa</p>
+</div>
+<div class="fragment" style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px; border-top:1.5px solid #5a6170; padding:28px 0;">
+<p class="texto">No pueden venir los 4 sábados</p><p class="texto" style="color:#8fbcff;">Siguen practicando entre sábados</p>
+</div>
+<div class="fragment" style="display:grid; grid-template-columns:1fr 1fr; gap:0 72px; border-top:1.5px solid #5a6170; border-bottom:1.5px solid #5a6170; padding:28px 0;">
+<p class="texto">Llegan a la PAA sin conocer la prueba</p><p class="texto" style="color:#8fbcff;">Hacen el simulacro con preguntas reales</p>
+</div>
+<div class="pie"><p>El hueco que llena K-Test</p><p class="pag"></p></div>
+<aside>Cada clic muestra una fila.</aside>
+</section>
+
+<section id="demo" class="tinta" style="padding:0;" data-transition="fade">
+<video style="position:absolute; left:0; top:0; width:1920px; height:1080px; object-fit:contain;" poster="assets/examen.png" src="assets/demo.webm" muted loop playsinline preload="auto"  aria-label="Demo de K-Test: página de inicio, un sprint de Matemáticas con avance automático, resultados por nivel y portal del docente"></video>
+<aside>Demo de unos 75 segundos, sin sonido; la narro en vivo. 1) La página de K-Test. 2) El inicio del estudiante: simulacro, sprints y su nivel. 3) Un sprint de Matemáticas: al responder pasa sola a la siguiente; se puede descartar una opción y marcar para revisar. 4) Resultados por nivel. 5) El portal del docente con el avance de cada estudiante. Un clic pausa el video.</aside>
+</section>
+
+<section id="prototipo" data-transition="fade">
+<h2 class="titulo">Lo que ya hace el prototipo</h2>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px;">
+<div class="entra" style="--i:1; display:flex; flex-direction:column; gap:20px;">
+<img class="captura" style="width:528px; height:297px;" src="assets/examen.png" alt="Pregunta de Matemáticas con cronómetro, fórmulas y opción descartada">
+<h3>Como el día de la prueba</h3>
+<p class="chico">Cronómetro, fórmulas, marcar y descartar opciones.</p>
+</div>
+<div class="entra" style="--i:2; display:flex; flex-direction:column; gap:20px;">
+<img class="captura" style="width:528px; height:297px;" src="assets/inicio.png" alt="Inicio del estudiante con su nivel y los puntos que le faltan">
+<h3>Su nivel, no un porcentaje</h3>
+<p class="chico">Y cuántos puntos le faltan para el siguiente.</p>
+</div>
+<div class="entra" style="--i:3; display:flex; flex-direction:column; gap:20px;">
+<img class="captura" style="width:528px; height:297px;" src="assets/docente.png" alt="Portal del docente con la lista de estudiantes y su nivel">
+<h3>Vista del docente</h3>
+<p class="chico">El avance de cada admitido, en un lugar.</p>
+</div>
+</div>
+<div class="entra" style="--i:4; display:flex; align-items:baseline; gap:32px; margin-top:56px; border-top:1.5px solid var(--tinta); padding-top:28px;">
+<p class="num medio">257 <span style="color:var(--azul);">→</span> 142</p>
+<p class="texto">clics para el simulacro completo, tras pruebas de usuario</p>
+</div>
+<div class="pie"><p>El prototipo</p><p class="pag"></p></div>
+<aside>Todo esto ya funciona, pero en una computadora: es una maqueta. La siguiente parte es qué falta para abrirlo a todos los admitidos.</aside>
+</section>
+
+<section id="m1" data-transition="fade">
+<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<div class="etapa">
+<img class="etapa-img" src="assets/edificio-1-maqueta.svg" alt="Maqueta blanca del edificio">
+<div class="etapa-info">
+<p class="etiqueta entra">Hoy</p>
+<p class="etapa-nombre entra" style="--i:1">Maqueta</p>
+<div class="dato entra" style="--i:2"><p class="chico">Ya tiene</p><p class="texto">Simulacro, sprints, niveles y vista del docente. Se ve y se usa.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Le falta</p><p class="texto">Que funcione fuera de una sola computadora.</p></div>
+<div class="miniaturas entra" style="--i:4">
+<img class="mini actual" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
+<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
+<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+</div>
+</div>
+</div>
+<div class="pie"><p>Lo que falta para lanzar · 1 de 5</p><p class="pag"></p></div>
+<aside>Lo que vieron en la demo es una maqueta de alta calidad: se entiende el edificio y se puede recorrer, pero nadie puede vivir ahí todavía. Estos son los momentos de la obra.</aside>
+</section>
+
+<section id="m2" data-transition="fade">
+<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<div class="etapa">
+<img class="etapa-img" src="assets/edificio-2-estructura.svg" alt="Estructura de columnas y losas">
+<div class="etapa-info">
+<p class="etiqueta vacia entra">Momento 2</p>
+<p class="etapa-nombre entra" style="--i:1">Estructura</p>
+<div class="dato entra" style="--i:2"><p class="chico">Hoy</p><p class="texto">Corre en una computadora.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Servidor en la nube y una arquitectura para todos los admitidos.</p></div>
+<div class="miniaturas entra" style="--i:4">
+<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
+<img class="mini actual" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
+<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
+<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+</div>
+</div>
+</div>
+<div class="pie"><p>Lo que falta para lanzar · 2 de 5</p><p class="pag"></p></div>
+<aside>La estructura: dónde vive la plataforma y que aguante a todos los admitidos al mismo tiempo.</aside>
+</section>
+
+<section id="m3" data-transition="fade">
+<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<div class="etapa">
+<img class="etapa-img" src="assets/edificio-3-instalaciones.svg" alt="Estructura con tuberías azules conectadas a otro edificio">
+<div class="etapa-info">
+<p class="etiqueta vacia entra">Momento 3</p>
+<p class="etapa-nombre entra" style="--i:1">Instalaciones</p>
+<div class="dato entra" style="--i:2"><p class="chico">Hoy</p><p class="texto">Base de datos de prueba.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Base de datos consistente, conectada al sistema de admisiones.</p></div>
+<div class="miniaturas entra" style="--i:4">
+<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<img class="mini actual" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
+<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
+<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+</div>
+</div>
+</div>
+<div class="pie"><p>Lo que falta para lanzar · 3 de 5</p><p class="pag"></p></div>
+<aside>El agua y la luz: los datos. La tubería azul es la conexión con admisiones, el otro edificio.</aside>
+</section>
+
+<section id="m4" data-transition="fade">
+<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<div class="etapa">
+<img class="etapa-img" src="assets/edificio-4-seguridad.svg" alt="Edificio cerrado con puerta, cerca y caseta de vigilancia">
+<div class="etapa-info">
+<p class="etiqueta vacia entra">Momento 4</p>
+<p class="etapa-nombre entra" style="--i:1">Seguridad y recepción</p>
+<div class="dato entra" style="--i:2"><p class="chico">Hoy</p><p class="texto">Inicio con Microsoft, en pruebas.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Falta</p><p class="texto">Cuenta única de Key, permisos por rol, datos de menores protegidos y respaldos.</p></div>
+<div class="miniaturas entra" style="--i:4">
+<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
+<img class="mini actual" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
+<img class="mini" src="assets/edificio-5-acabados.svg" alt="Acabados">
+</div>
+</div>
+</div>
+<div class="pie"><p>Lo que falta para lanzar · 4 de 5</p><p class="pag"></p></div>
+<aside>Portones, vigilantes y recepción: quién entra, qué puede ver cada quien y cómo cuidamos los datos de menores.</aside>
+</section>
+
+<section id="m5" data-transition="fade">
+<h2 class="titulo" style="margin-bottom:40px;">De maqueta a edificio</h2>
+<div class="etapa">
+<img class="etapa-img" src="assets/edificio-5-acabados.svg" alt="Edificio terminado con ventanas azules y franja de Key">
+<div class="etapa-info">
+<p class="etiqueta vacia entra">Momento 5</p>
+<p class="etapa-nombre entra" style="--i:1">Acabados</p>
+<div class="dato entra" style="--i:2"><p class="chico">Falta</p><p class="texto">Identidad Key completa, material de estudio, más simulacros y sprints.</p></div>
+<div class="dato entra" style="--i:3"><p class="chico">Antes de abrir: el permiso de habitabilidad</p><p class="texto">Prueba piloto, aviso de privacidad y revisión de seguridad.</p></div>
+<div class="miniaturas entra" style="--i:4">
+<img class="mini" src="assets/edificio-1-maqueta.svg" alt="Maqueta">
+<img class="mini" src="assets/edificio-2-estructura.svg" alt="Estructura">
+<img class="mini" src="assets/edificio-3-instalaciones.svg" alt="Instalaciones">
+<img class="mini" src="assets/edificio-4-seguridad.svg" alt="Seguridad y recepción">
+<img class="mini actual" src="assets/edificio-5-acabados.svg" alt="Acabados">
+</div>
+</div>
+</div>
+<div class="pie"><p>Lo que falta para lanzar · 5 de 5</p><p class="pag"></p></div>
+<aside>Las ventanas y el mobiliario de Key: el material, los simulacros y los sprints. Y antes de abrir, como en cualquier edificio, el permiso de habitabilidad.</aside>
+</section>
+
+<section id="pedimos" class="azul" data-transition="fade">
+<p class="texto entra" style="color:#dfe8f7;">Lo que pedimos</p>
+<h2 class="entra" style="--i:1; font-size:200px; font-weight:700; line-height:0.95; letter-spacing:-6px; margin:40px 0 56px;">Aprobar el proyecto</h2>
+<p class="portada-sub entra" style="--i:2; width:1200px;">Para pasar de la maqueta al edificio y abrir K-Test a todos los admitidos de Key.</p>
+<div class="pie"><p>Lo que pedimos</p><p class="pag"></p></div>
+<aside>Una sola petición: aprobar el proyecto. Con eso armamos el calendario de los cinco momentos.</aside>
+</section>
+
+<section id="cierre">
+<img class="logo entra" src="assets/logo-key.svg" alt="Key Institute">
+<div class="portada-cuerpo">
+<div class="portada-texto">
+<p class="entra" style="--i:1; font-size:96px; font-weight:600; line-height:1.05; letter-spacing:-2px;">Para los que imaginan, y hacen.</p>
+<p class="portada-sub entra" style="--i:2; color:var(--azul);">Gracias</p>
+<p class="portada-autores entra" style="--i:3;">K-Test · Soham Villacorta e Iván Figueroa</p>
+</div>
+<img class="portada-img entra" style="--i:2" src="assets/edificio-5-acabados.svg" alt="Ilustración isométrica del edificio terminado">
+</div>
+<aside>Gracias. Quedamos atentos a sus preguntas.</aside>
+</section>
+
+</main>
+<div id="notas" role="note"></div>
+<p id="ayuda">← → avanzar · F pantalla completa · N notas</p>
+<script>
+(() => {
+  const escenario = document.getElementById('escenario');
+  const diapositivas = [...escenario.querySelectorAll(':scope > section')];
+  const notas = document.getElementById('notas');
+  diapositivas.forEach((d, i) => d.querySelectorAll('.pag').forEach((p) => { p.textContent = i + 1; }));
+  let actual = 0;
+
+  function ajustar() {
+    const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+    escenario.style.transform = 'scale(' + k + ') translate(-50%, -50%)';
+  }
+  const pasos = (d) => [...d.querySelectorAll('.fragment')];
+
+  function mostrar(i, todosLosPasos) {
+    i = Math.max(0, Math.min(diapositivas.length - 1, i));
+    diapositivas.forEach((d, j) => {
+      const activa = j === i;
+      d.classList.toggle('activa', activa);
+      d.querySelectorAll('video').forEach((v) => { if (activa) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); });
+    });
+    pasos(diapositivas[i]).forEach((f) => f.classList.toggle('visible', Boolean(todosLosPasos)));
+    actual = i;
+    const nota = diapositivas[i].querySelector('aside');
+    notas.textContent = nota ? nota.textContent : '';
+    history.replaceState(null, '', '#' + (i + 1));
+  }
+  function siguiente() {
+    const pendiente = pasos(diapositivas[actual]).find((f) => !f.classList.contains('visible'));
+    if (pendiente) pendiente.classList.add('visible');
+    else if (actual < diapositivas.length - 1) mostrar(actual + 1, false);
+  }
+  function anterior() {
+    const vistos = pasos(diapositivas[actual]).filter((f) => f.classList.contains('visible'));
+    if (vistos.length) vistos[vistos.length - 1].classList.remove('visible');
+    else if (actual > 0) mostrar(actual - 1, true);
+  }
+
+  addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); siguiente(); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); anterior(); }
+    else if (e.key === 'Home') mostrar(0, false);
+    else if (e.key === 'End') mostrar(diapositivas.length - 1, true);
+    else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    else if (e.key === 'n' || e.key === 'N') notas.classList.toggle('abierta');
+  });
+  addEventListener('click', (e) => { if (!notas.contains(e.target)) (e.clientX < innerWidth / 4 ? anterior : siguiente)(); });
+  let x0 = null;
+  addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  addEventListener('touchend', (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) (dx < 0 ? siguiente : anterior)(); x0 = null; });
+  let reposo;
+  addEventListener('mousemove', () => { document.body.classList.add('raton'); clearTimeout(reposo); reposo = setTimeout(() => document.body.classList.remove('raton'), 1800); });
+  addEventListener('resize', ajustar);
+  ajustar();
+  mostrar((parseInt(location.hash.slice(1), 10) || 1) - 1, false);
+})();
+</script>
+</body>
+</html>
